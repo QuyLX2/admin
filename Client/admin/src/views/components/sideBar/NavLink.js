@@ -1,39 +1,39 @@
 import React, { Component } from 'react';
-import { Layout, Menu } from 'antd';
-import { Link } from 'react-router-dom';
+import { Menu } from 'antd';
 import routes from '../../../routes';
-
-
-const { SubMenu } = Menu;
-const { Sider } = Layout;
-
-
+import { Link } from 'react-router-dom'
 class NavLink extends Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         collapsed: false
+    //     }
+    // }
+
+    // toggleCollapsed = () => {
+    //     this.setState({
+    //       collapsed: !this.state.collapsed,
+    //     });
+    //   };
     render() {
         return (
-            <Sider width={200} style={{ background: '#fff' }}>
+            <div >
                 <Menu
-                    mode="inline"
                     defaultSelectedKeys={['1']}
                     defaultOpenKeys={['sub1']}
-                    style={{ height: '100%' }}
+                    mode="inline"
+                    theme="dark"
+                // inlineCollapsed={this.state.collapsed}
                 >
-                    {routes.map((route, index) => {
-                        return route.children ? (
-                                <SubMenu key={index} icon={route.icon} title={route.name}>
-                                    {route.children.map((child, idx) => (
-                                        <Menu.Item key={child.name + idx}><Link to={child.path}>{child.name}</Link></Menu.Item>
-                                    ))}
-                                </SubMenu>
-                            ) : (
-                                <Menu.Item key={index} icon={route.icon}>
-                                    <Link to={route.path}>{route.name}</Link>
-                                </Menu.Item>
-                            )
-                        })}
+                    {routes.map((child, index) => (
+                        <Menu.Item key={index} icon={child.icon}>
+                            <Link to={child.path}>{child.name_routes}</Link>
+                        </Menu.Item>
+                    ))}
                 </Menu>
-            </Sider>
-        )
+            </div>
+        );
     }
-} 
+}
+
 export default NavLink;
