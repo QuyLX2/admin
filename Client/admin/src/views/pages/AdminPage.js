@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
+import { Link, Route, Switch } from 'react-router-dom';
 import NavLink from '../components/sideBar/NavLink';
 import HeaderCom from '../components/header/HeaderCom';
 
@@ -23,9 +24,13 @@ class AdminPage extends Component {
                                 margin: 0
                             }}
                         >
-                            {routes.map((child) => (
-                                child.component
+                        <Switch>
+                            {routes.map((child, index) => (
+                                <Route path={child.path} key={index}>
+                                    {child.component}
+                                </Route>
                             ))}
+                        </Switch>
                         </Content>
                     </Layout>
                 </Layout>

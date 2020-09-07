@@ -1,33 +1,60 @@
 import React  from 'react'
+import AddNewPost from '../src/views/components/contents/AddNewPost';
+import UserListManagement from '../src/views/components/contents/UserListManagement';
+import AdminDashBoard from './views/components/contents/AdminDashBoard';
+import PostManagement from './views/components/contents/PostManagement';
+import MarkTable from './views/components/contents/MarkTable';
+import AdminProfile from './views/components/contents/AdminProfile';
+
 import {
     PieChartOutlined,
     DesktopOutlined,
     ContainerOutlined,
+    LineChartOutlined,
+    SolutionOutlined,
+    FileAddOutlined,
+    TeamOutlined,
+    FileMarkdownOutlined,
+    UserOutlined
+
 } from '@ant-design/icons';
+
 const routes = [
     {
-        path: "/content",
-        component: <div>Content manager</div>,
-        name_routes: "Content manager",
-        icon: <PieChartOutlined />
+        path: "/admin-dashboard",
+        component: <AdminDashBoard/>,
+        name_routes: "Admin Dashboard",
+        icon: <LineChartOutlined />
+    },
+    {
+        path: "/post-manager",
+        component: <PostManagement/>,
+        name_routes: "Post Management",
+        icon: <SolutionOutlined />
     },
     {
         path: "/add-new-post",
-        component: <div>Add new posts</div>,
-        name_routes: "New post",
-        icon: <DesktopOutlined />
+        component: <AddNewPost/>,
+        name_routes: "New Post",
+        icon: <FileAddOutlined />
     },
     {
         path: "/mana-user-profile",
-        component: <div>User profile</div>,
-        name_routes: "User profile",
-        icon: <ContainerOutlined />
+        component: <UserListManagement/>,
+        name_routes: "User Profile",
+        icon: <TeamOutlined />
     },
     {
-        path: "/table",
-        component: <div>Show data</div>,
-        name_routes: "Show Data",
-        icon: <ContainerOutlined />
+        path: "/student-mark",
+        component: <MarkTable/>,
+        name_routes: "Student Mark",
+        icon: <FileMarkdownOutlined />
+    },
+    {
+        path: "/admin-profile",
+        component: <AdminProfile/>,
+        name_routes: "Admin Profile",
+        icon: <UserOutlined />
     }
 ]
 

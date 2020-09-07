@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Dropdown, Button, message, Row, Col } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import SearchCom from './SearchCom';
 
 const { Header } = Layout;
@@ -17,7 +17,7 @@ const menu = (
         <Menu.Item key="2" icon={<UserOutlined />}>
             2nd menu item
       </Menu.Item>
-        <Menu.Item key="3" icon={<UserOutlined />}>
+        <Menu.Item key="3" icon={<LogoutOutlined />}>
             3rd menu item
       </Menu.Item>
     </Menu>
