@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import NavLink from '../components/sideBar/NavLink';
 import HeaderCom from '../components/header/HeaderCom';
 
