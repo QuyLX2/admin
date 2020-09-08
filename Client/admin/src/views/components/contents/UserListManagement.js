@@ -1,7 +1,12 @@
 import React, { useState, Component } from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form } from 'antd';
+import { Table, Input, InputNumber, Popconfirm, Form, Button } from 'antd';
+
+import {
+    UserAddOutlined
+} from '@ant-design/icons';
 
 const originData = [];
+
 
 for (let i = 0; i < 30; i++) {
   originData.push({
@@ -98,19 +103,37 @@ const EditableTable = () => {
     {
       title: 'Name',
       dataIndex: 'name',
-      width: '25%',
+      width: '20%',
       editable: true,
     },
     {
-      title: 'Age',
+      title: 'Class',
       dataIndex: 'age',
-      width: '15%',
+      width: '10%',
       editable: true,
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      width: '40%',
+      title: 'Test 1',
+      dataIndex: 'age',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'Test 2',
+      dataIndex: 'age',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'Average Mark',
+      dataIndex: 'mark',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'Rank',
+      dataIndex: 'rank',
+      width: '10%',
       editable: true,
     },
     {
@@ -136,10 +159,10 @@ const EditableTable = () => {
         ) : (
             <div style={{display:'flex', justifyContent:"space-around"}}>
                 <a disabled={editingKey !== ''} onClick={() => edit(record)}>
-                    Edit
+                    <Button type="primary">Edit</Button>
                 </a>
                 <Popconfirm title="Sure to delete?">
-                    <a>Delete</a>
+                     <Button type="primary">Edit</Button>
                 </Popconfirm>
             </div>
         );
@@ -188,7 +211,13 @@ class UserListManagement extends Component {
         return (
             <div>
               <h1 style={{textAlign:"center", fontSize:"2rem", textTransform:"uppercase"}}>Student List</h1>
-                <EditableTable />
+              <div style={{textAlign:"right", paddingBottom:"10px" }} >
+                <Button type="primary">
+                  <UserAddOutlined />
+                  Add Student
+                </Button>
+              </div>
+              <EditableTable />
             </div>
         );
     }
