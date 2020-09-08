@@ -7,9 +7,9 @@ import MarkTable from './views/components/contents/MarkTable';
 import AdminProfile from './views/components/contents/AdminProfile';
 
 import {
-    PieChartOutlined,
-    DesktopOutlined,
-    ContainerOutlined,
+    // PieChartOutlined,
+    // DesktopOutlined,
+    // ContainerOutlined,
     LineChartOutlined,
     SolutionOutlined,
     FileAddOutlined,
