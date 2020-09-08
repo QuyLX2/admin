@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'antd';
 
+import {
+  UserAddOutlined
+} from '@ant-design/icons';
 
 export default class CreateUser extends Component {
     state = {
@@ -40,7 +43,8 @@ export default class CreateUser extends Component {
         return (    
             <>
                 <Button type="primary" onClick={this.showModal}>
-                    Open Modal with async logic
+                  <UserAddOutlined />
+                  Create User
                 </Button>
                 <Modal
                 title="Title"

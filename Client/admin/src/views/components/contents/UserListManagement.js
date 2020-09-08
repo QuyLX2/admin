@@ -1,9 +1,8 @@
 import React, { useState, Component } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Button } from 'antd';
+import CreateUser from './CreateUser';
 
-import {
-    UserAddOutlined
-} from '@ant-design/icons';
+
 
 const originData = [];
 
@@ -153,7 +152,7 @@ const EditableTable = () => {
               Save
             </a>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
+              <a href="/">Cancel</a>
             </Popconfirm>
           </span>
         ) : (
@@ -162,7 +161,7 @@ const EditableTable = () => {
                     <Button type="primary">Edit</Button>
                 </a>
                 <Popconfirm title="Sure to delete?">
-                     <Button type="primary">Edit</Button>
+                     <Button type="primary">Delete</Button>
                 </Popconfirm>
             </div>
         );
@@ -212,10 +211,7 @@ class UserListManagement extends Component {
             <div>
               <h1 style={{textAlign:"center", fontSize:"2rem", textTransform:"uppercase"}}>Student List</h1>
               <div style={{textAlign:"right", paddingBottom:"10px" }} >
-                <Button type="primary">
-                  <UserAddOutlined />
-                  Add Student
-                </Button>
+                  <CreateUser />
               </div>
               <EditableTable />
             </div>
