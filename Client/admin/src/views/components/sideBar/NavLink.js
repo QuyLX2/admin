@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Menu } from 'antd';
 import routes from '../../../routes';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 class NavLink extends Component {
     // constructor(props) {
     //     super(props);
