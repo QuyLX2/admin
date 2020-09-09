@@ -3,18 +3,14 @@ import AddNewPost from '../src/views/components/contents/AddNewPost';
 import UserListManagement from '../src/views/components/contents/UserListManagement';
 import AdminDashBoard from './views/components/contents/AdminDashBoard';
 import PostManagement from './views/components/contents/PostManagement';
-import MarkTable from './views/components/contents/MarkTable';
 import AdminProfile from './views/components/contents/AdminProfile';
+import Discuss from './views/components/contents/Discuss';
 
 import {
-    // PieChartOutlined,
-    // DesktopOutlined,
-    // ContainerOutlined,
     LineChartOutlined,
     SolutionOutlined,
     FileAddOutlined,
     TeamOutlined,
-    FileMarkdownOutlined,
     UserOutlined
 
 } from '@ant-design/icons';
@@ -45,15 +41,15 @@ const routes = [
         icon: <TeamOutlined />
     },
     {
-        path: "/student-mark",
-        component: <MarkTable/>,
-        name_routes: "Student Mark",
-        icon: <FileMarkdownOutlined />
-    },
-    {
         path: "/admin-profile",
         component: <AdminProfile/>,
         name_routes: "Admin Profile",
+        icon: <UserOutlined />
+    },
+    {
+        path: "/discuss",
+        component: <Discuss />,
+        name_routes: "Discuss",
         icon: <UserOutlined />
     }
 ]

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Dropdown, Button, message, Row, Col } from 'antd';
-import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined, BellOutlined } from '@ant-design/icons';
 import SearchCom from './SearchCom';
 
 const { Header } = Layout;
@@ -36,6 +36,7 @@ class HeaderCom extends Component {
                         <SearchCom />
                     </Col>
                     <Col xs={2} sm={4} md={6} lg={8} xl={4} style={{ textAlign: "right" }}>
+                        
                         <Dropdown overlay={menu}>
                             <Button style={{ width: "100%" }}>
                                 <UserOutlined />
