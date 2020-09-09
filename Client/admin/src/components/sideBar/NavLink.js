@@ -19,8 +19,8 @@ class NavLink extends Component {
         return (
             <div >
                 <Menu
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
+                    defaultSelectedKeys={['0']}
+                    defaultOpenKeys={['sub0']}
                     mode="inline"
                     theme="dark"
                 // inlineCollapsed={this.state.collapsed}

@@ -9,7 +9,6 @@ import {
     SolutionOutlined,
     FileAddOutlined,
     TeamOutlined,
-    UserOutlined
 
 } from '@ant-design/icons';
 
@@ -21,16 +20,16 @@ const routes = [
         icon: <LineChartOutlined />
     },
     {
-        path: "/post-manager",
-        component: <PostManagement/>,
-        name_routes: "Post Management",
-        icon: <SolutionOutlined />
-    },
-    {
         path: "/add-new-post",
         component: <AddNewPost/>,
         name_routes: "New Post",
         icon: <FileAddOutlined />
+    },
+    {
+        path: "/post-manager",
+        component: <PostManagement/>,
+        name_routes: "Post Management",
+        icon: <SolutionOutlined />
     },
     {
         path: "/mana-user-profile",

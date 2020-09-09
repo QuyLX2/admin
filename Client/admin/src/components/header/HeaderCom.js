@@ -34,7 +34,7 @@ class HeaderCom extends Component {
                         <Title type="warning" level={3}>ADMIN</Title>
                     </Col>
                     <Col style={{ display: "flex", alignItems: "center", textAlign: "center" }} xs={20} sm={16} md={12} lg={8} xl={16}>
-                        
+
                     </Col>
                     <Col xs={2} sm={4} md={6} lg={8} xl={4} style={{ textAlign: "right" }}>                       
                         <Dropdown overlay={menu}>

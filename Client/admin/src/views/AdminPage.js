@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import NavLink from '../components/sideBar/NavLink';
 import HeaderCom from '../components/header/HeaderCom';
 import AdminProfile from './AdminProfile'
+import Discuss from '../components/contents/postManagement/Discuss'
 
 const { Content, Sider } = Layout;
 
@@ -32,6 +33,7 @@ class AdminPage extends Component {
                                 </Route>
                             ))}
                             <Route path="/admin-profile"><AdminProfile /></Route>
+                            <Route path="/discuss"><Discuss/></Route>
                         </Switch>
                         </Content>
                     </Layout>
