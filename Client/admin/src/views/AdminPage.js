@@ -15,14 +15,14 @@ class AdminPage extends Component {
             <Layout style={{ minHeight: "100vh" }}>
                 <HeaderCom />
                 <Layout>
-                    <Sider>
+                    <Sider theme="light">
                         <NavLink />
                     </Sider>
                     <Layout style={{ padding: '0 24px 24px' }}>
                         <Content
                             className="site-layout-background"
                             style={{
-                                padding: 24,
+                                padding: 20,
                                 margin: 0
                             }}
                         >

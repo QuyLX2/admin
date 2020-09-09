@@ -153,7 +153,7 @@ const EditableTable = () => {
         return editable ? (
           <span>
             <a
-              href='javascript:;'
+              href="/"
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8,
@@ -166,14 +166,14 @@ const EditableTable = () => {
             </Popconfirm>
           </span>
         ) : (
-          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <a disabled={editingKey !== ''} onClick={() => edit(record)}>
-              <Button type='primary'>Edit</Button>
-            </a>
-            <Popconfirm title='Sure to delete?'>
-              <Button type='primary'>Delete</Button>
-            </Popconfirm>
-          </div>
+            <div style={{display:'flex', justifyContent:"space-around"}}>
+                <a href="/" disabled={editingKey !== ''} onClick={() => edit(record)}>
+                    <Button type="primary">Edit</Button>
+                </a>
+                <Popconfirm title="Sure to delete?">
+                     <Button type="primary" danger>Delete</Button>
+                </Popconfirm>
+            </div>
         );
       },
     },

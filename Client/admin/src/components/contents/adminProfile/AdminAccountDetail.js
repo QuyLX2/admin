@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Input, Card, Form } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
-import FormItemInput from 'antd/lib/form/FormItemInput';
 
 export default class AdminAccountDetail extends Component {
   render() {
@@ -44,7 +43,7 @@ export default class AdminAccountDetail extends Component {
           style={{ marginTop: 16 }}
           type='inner'
           title='Inner Card title'
-          extra={<a href='#'>More</a>}
+          extra={<a href='/'>More</a>}
         >
           Inner Card content
         </Card>

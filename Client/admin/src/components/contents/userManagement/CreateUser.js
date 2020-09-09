@@ -43,7 +43,7 @@ export default class CreateUser extends Component {
         const { visible, confirmLoading, ModalText } = this.state;
         return (    
             <>
-                <Button type="primary" onClick={this.showModal}>
+                <Button style={{backgroundColor: "#389e0d", color:"#fff"}}  onClick={this.showModal}>
                   <UserAddOutlined />
                   Create User
                 </Button>

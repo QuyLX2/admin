@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Input } from 'antd';
+import { Row, Col } from 'antd';
 import AdminDetail from '../components/contents/adminProfile/AdminDetail';
 import AdminAccountDetail from '../components/contents/adminProfile/AdminAccountDetail';
 

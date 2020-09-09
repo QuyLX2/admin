@@ -8,37 +8,39 @@ import SearchBar from '../components/Search/SearchBar';
 const { Title } = Typography;
 
 const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a href=''>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: () => (
-      <Space>
-        <AlertDelete />
-        <ModalPopUp />
-        <Badge count={9}>
-          <Button onClick={() => console.log('day la disscuss')} block>
-            <Link to='/discuss'>Link to Discuss</Link>
-          </Button>
-        </Badge>
-      </Space>
-    ),
-  },
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        render: text => <a href="/">{text}</a>,
+    },
+    {
+        title: 'Age',
+        dataIndex: 'age',
+        key: 'age',
+    },
+    {
+        title: 'Address',
+        dataIndex: 'address',
+        key: 'address',
+    },
+    {
+        title: 'Action',
+        key: 'action',
+        render: () => (
+            <Space >
+                <AlertDelete />
+                <ModalPopUp />
+                <Badge count={9}>
+                    <Button onClick={() => console.log("day la disscuss")} block>
+                        <Link to="/discuss">
+                            Link to Discuss
+                        </Link>
+                    </Button>
+                </Badge>
+            </Space>
+        ),
+    },
 ];
 
 const data = [
