@@ -3,11 +3,21 @@ import { Row, Col, Typography, Input, Button } from 'antd';
 import PostContent from './PostContent';
 
 const { Title } = Typography;
-const { TextArea } = Input;
+// const { TextArea } = Input;
 
 
 class AddNewPost extends Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "",
+      contentPost: []
+    }
+  }
+  addNewPost = () => {
+    this.setState({ ...this.state, contentPost: [...this.state.contentPost, { subTitle: "", content: "", srcImg: "" }] });
+    // console.log(tempContent);
+  }
   render() {
     return (
       <>
@@ -17,9 +27,11 @@ class AddNewPost extends Component {
         <Row >
           <Col span={12}><Input placeholder="Lesson's Title" /></Col>
           <Col span={5} offset={7} style={{ textAlign: "right" }}>
-            <Button  type="primary" style={{ width: "95%" }}>Add Content</Button>
+            <Button onClick={this.addNewPost} type="primary" style={{ width: "95%" }}>Add Content</Button>
           </Col>
         </Row>
+        {this.state.contentPost.map((value, index) => <PostContent key={index} />)}
+        {this.state.contentPost.length === 0 ? "" : <Button style={{ marginTop: 20 }} type="primary">Submit</Button>}
       </>
     );
   }

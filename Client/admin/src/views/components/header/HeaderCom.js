@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Dropdown, Button, message, Row, Col } from 'antd';
+import { Layout, Menu, Dropdown, Button, message, Row, Col, Typography } from 'antd';
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import SearchCom from './SearchCom';
 
 const { Header } = Layout;
+const { Title } = Typography;
+
 
 function handleMenuClick(e) {
     message.info('Click on menu item.');
@@ -29,10 +31,10 @@ class HeaderCom extends Component {
             <Header className="header">
 
                 <Row>
-                    <Col xs={2} sm={4} md={6} lg={8} xl={4}>
-                        Col
-                        </Col>
-                    <Col style={{ display: "flex", alignItems: "center", textAlign:"center"}} xs={20} sm={16} md={12} lg={8} xl={16}>
+                    <Col xs={2} sm={4} md={6} lg={8} xl={4} style={{display:"flex", alignItems:"center"}}>
+                        <Title type="warning" level={3}>ADMIN</Title>
+                    </Col>
+                    <Col style={{ display: "flex", alignItems: "center", textAlign: "center" }} xs={20} sm={16} md={12} lg={8} xl={16}>
                         <SearchCom />
                     </Col>
                     <Col xs={2} sm={4} md={6} lg={8} xl={4} style={{ textAlign: "right" }}>

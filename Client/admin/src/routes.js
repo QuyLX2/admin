@@ -3,7 +3,6 @@ import AddNewPost from '../src/views/components/contents/AddNewPost';
 import UserListManagement from '../src/views/components/contents/UserListManagement';
 import AdminDashBoard from './views/components/contents/AdminDashBoard';
 import PostManagement from './views/components/contents/PostManagement';
-import MarkTable from './views/components/contents/MarkTable';
 import AdminProfile from './views/components/contents/AdminProfile';
 
 import {
@@ -14,7 +13,7 @@ import {
     SolutionOutlined,
     FileAddOutlined,
     TeamOutlined,
-    FileMarkdownOutlined,
+    // FileMarkdownOutlined,
     UserOutlined
 
 } from '@ant-design/icons';
@@ -43,12 +42,6 @@ const routes = [
         component: <UserListManagement/>,
         name_routes: "User Profile",
         icon: <TeamOutlined />
-    },
-    {
-        path: "/student-mark",
-        component: <MarkTable/>,
-        name_routes: "Student Mark",
-        icon: <FileMarkdownOutlined />
     },
     {
         path: "/admin-profile",

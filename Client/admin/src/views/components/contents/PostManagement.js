@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Space, Button } from 'antd';
+import { Table, Space } from 'antd';
 import ModalPopUp from './ModalPopUp';
 import AlertDelete from './AlertDelete';
 
@@ -8,7 +8,7 @@ const columns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        render: text => <a>{text}</a>,
+        render: text => <a href="">{text}</a>,
     },
     {
         title: 'Age',
