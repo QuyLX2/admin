@@ -1,6 +1,6 @@
 import React, { useState, Component } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Button } from 'antd';
-import CreateUser from './CreateUser';
+import CreateUser from '../components/contents/userManagement/CreateUser';
 
 
 
@@ -143,7 +143,7 @@ const EditableTable = () => {
         return editable ? (
           <span>
             <a
-              href="javascript:;"
+              href="/"
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8,
@@ -157,11 +157,11 @@ const EditableTable = () => {
           </span>
         ) : (
             <div style={{display:'flex', justifyContent:"space-around"}}>
-                <a disabled={editingKey !== ''} onClick={() => edit(record)}>
+                <a href="/" disabled={editingKey !== ''} onClick={() => edit(record)}>
                     <Button type="primary">Edit</Button>
                 </a>
                 <Popconfirm title="Sure to delete?">
-                     <Button type="primary">Delete</Button>
+                     <Button type="primary" danger>Delete</Button>
                 </Popconfirm>
             </div>
         );

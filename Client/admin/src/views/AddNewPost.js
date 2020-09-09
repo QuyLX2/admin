@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Typography, Input, Button } from 'antd';
-import PostContent from './PostContent';
+import PostContent from '../components/contents/addNewPost/PostContent';
 
 const { Title } = Typography;
 // const { TextArea } = Input;

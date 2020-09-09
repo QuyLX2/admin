@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Menu } from 'antd';
-import routes from '../../../routes';
+import routes from '../../routes';
 import { Link } from 'react-router-dom';
 class NavLink extends Component {
 
@@ -8,8 +8,8 @@ class NavLink extends Component {
         return (
             <div >
                 <Menu
-                    defaultSelectedKeys={['0']}
-                    defaultOpenKeys={['sub0']}
+                    // defaultSelectedKeys={['0']}
+                    // defaultOpenKeys={['sub0']}
                     mode="inline"
                     theme="light"
                 >

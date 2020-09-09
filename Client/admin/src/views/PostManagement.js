@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Space, Button, Badge } from 'antd';
-import ModalPopUp from './ModalPopUp';
-import AlertDelete from './AlertDelete';
+import ModalPopUp from '../components/contents/postManagement/ModalPopUp';
+import AlertDelete from '../components/contents/postManagement/AlertDelete';
 import { Link } from "react-router-dom";
 
 
@@ -10,7 +10,7 @@ const columns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        render: text => <a href="">{text}</a>,
+        render: text => <a href="/">{text}</a>,
     },
     {
         title: 'Age',
