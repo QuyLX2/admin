@@ -32,7 +32,6 @@ class AdminPage extends Component {
                                     {child.component}
                                 </Route>
                             ))}
-                            <Route path="/admin-profile"><AdminProfile /></Route>
                             <Route path="/discuss"><Discuss/></Route>
                         </Switch>
                         </Content>

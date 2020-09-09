@@ -1,11 +1,21 @@
 import React, { useState, Component } from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form, Button } from 'antd';
 import CreateUser from '../components/contents/userManagement/CreateUser';
+import SearchBar from '../components/Search/SearchBar';
 
+import {
+  Table,
+  Input,
+  InputNumber,
+  Popconfirm,
+  Form,
+  Button,
+  Row,
+  Col,
+  Typography
+} from 'antd';
 
-
+const { Title } = Typography;
 const originData = [];
-
 
 for (let i = 0; i < 30; i++) {
   originData.push({
@@ -56,9 +66,9 @@ const EditableTable = () => {
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState('');
 
-  const isEditing = record => record.key === editingKey;
+  const isEditing = (record) => record.key === editingKey;
 
-  const edit = record => {
+  const edit = (record) => {
     form.setFieldsValue({
       name: '',
       age: '',
@@ -72,16 +82,16 @@ const EditableTable = () => {
     setEditingKey('');
   };
 
-//   const handleDelete = key => {
-//     const dataSource = [...this.state.dataSource];
-//     this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
-//   };
+  //   const handleDelete = key => {
+  //     const dataSource = [...this.state.dataSource];
+  //     this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
+  //   };
 
-  const save = async key => {
+  const save = async (key) => {
     try {
       const row = await form.validateFields();
       const newData = [...data];
-      const index = newData.findIndex(item => key === item.key);
+      const index = newData.findIndex((item) => key === item.key);
 
       if (index > -1) {
         const item = newData[index];
@@ -107,19 +117,19 @@ const EditableTable = () => {
     },
     {
       title: 'Class',
-      dataIndex: 'age',
+      dataIndex: 'class',
       width: '10%',
       editable: true,
     },
     {
       title: 'Test 1',
-      dataIndex: 'age',
+      dataIndex: 'test1',
       width: '10%',
       editable: true,
     },
     {
       title: 'Test 2',
-      dataIndex: 'age',
+      dataIndex: 'test2',
       width: '10%',
       editable: true,
     },
@@ -143,7 +153,7 @@ const EditableTable = () => {
         return editable ? (
           <span>
             <a
-              href="javascript:;"
+              href='javascript:;'
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8,
@@ -151,31 +161,31 @@ const EditableTable = () => {
             >
               Save
             </a>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a href="/">Cancel</a>
+            <Popconfirm title='Sure to cancel?' onConfirm={cancel}>
+              <a href='/'>Cancel</a>
             </Popconfirm>
           </span>
         ) : (
-            <div style={{display:'flex', justifyContent:"space-around"}}>
-                <a disabled={editingKey !== ''} onClick={() => edit(record)}>
-                    <Button type="primary">Edit</Button>
-                </a>
-                <Popconfirm title="Sure to delete?">
-                     <Button type="primary">Delete</Button>
-                </Popconfirm>
-            </div>
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <a disabled={editingKey !== ''} onClick={() => edit(record)}>
+              <Button type='primary'>Edit</Button>
+            </a>
+            <Popconfirm title='Sure to delete?'>
+              <Button type='primary'>Delete</Button>
+            </Popconfirm>
+          </div>
         );
       },
     },
   ];
-  const mergedColumns = columns.map(col => {
+  const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
 
     return {
       ...col,
-      onCell: record => ({
+      onCell: (record) => ({
         record,
         inputType: col.dataIndex === 'age' ? 'number' : 'text',
         dataIndex: col.dataIndex,
@@ -195,7 +205,7 @@ const EditableTable = () => {
         bordered
         dataSource={data}
         columns={mergedColumns}
-        rowClassName="editable-row"
+        rowClassName='editable-row'
         pagination={{
           onChange: cancel,
         }}
@@ -204,19 +214,31 @@ const EditableTable = () => {
   );
 };
 
-
 class UserListManagement extends Component {
-    render() {
-        return (
-            <div>
-              <h1 style={{textAlign:"center", fontSize:"2rem", textTransform:"uppercase"}}>Student List</h1>
-              <div style={{textAlign:"right", paddingBottom:"10px" }} >
-                  <CreateUser />
-              </div>
-              <EditableTable />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Title style={{ textAlign: 'center' }} level={2}>
+          Student List
+        </Title>
+        <Row
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            paddingBottom: '10px',
+          }}
+        >
+          <Col span={6}>
+            <SearchBar />
+          </Col>
+          <Col span={6} style={{ textAlign: 'right' }}>
+            <CreateUser />
+          </Col>
+        </Row>
+        <EditableTable />
+      </div>
+    );
+  }
 }
 
 export default UserListManagement;

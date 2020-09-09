@@ -3,6 +3,7 @@ import AddNewPost from '../src/views/AddNewPost';
 import UserListManagement from '../src/views/UserListManagement';
 import AdminDashBoard from './views/AdminDashBoard';
 import PostManagement from './views/PostManagement';
+import AdminProfile from './views/AdminProfile';
 
 import {
     LineChartOutlined,
@@ -34,7 +35,13 @@ const routes = [
     {
         path: "/mana-user-profile",
         component: <UserListManagement/>,
-        name_routes: "User Profile",
+        name_routes: "User Management",
+        icon: <TeamOutlined />
+    },
+    {
+        path: "/admin-profile",
+        component: <AdminProfile />,
+        name_routes: "Admin Profile",
         icon: <TeamOutlined />
     },
 ]

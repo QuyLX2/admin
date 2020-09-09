@@ -1,54 +1,47 @@
 import React, { Component } from 'react';
-import { Row, Col, Input, Card, Form } from 'antd';
+import { Row, Col, Input, Form, DatePicker } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import FormItemInput from 'antd/lib/form/FormItemInput';
 
-export default class AdminAccountDetail extends Component {
+export default class CreateUserPopUp extends Component {
   render() {
     return (
-      <Card title='Admin Profile'>
         <Form layout='vertical'>
           <Row gutter={12}>
             <Col span={12} >
-              <FormItem label='First Name'>
+              <FormItem label='First Name' required= 'true'>
                 <Input value='Dat'></Input>
               </FormItem>
             </Col>
             <Col span={12}>
-              <FormItem label='Last Name'>
+              <FormItem label='Last Name' required= 'true'>
                 <Input value='Duong'></Input>
               </FormItem>
             </Col>
           </Row>
           <Row gutter={12}>
-            <Col span={12}>
-              <FormItem label='Email' type='email'>
+            <Col span={24}>
+              <FormItem label='Email' type='email' required= 'true'>
                 <Input />
               </FormItem>
             </Col>
+          </Row>
+          <Row gutter={12}>
             <Col span={12}>
-              <FormItem label='Password' type='password'>
+              <FormItem label='Password' type='password' required= 'true'>
                 <Input.Password />
               </FormItem>
             </Col>
           </Row>
-          <Row>
+
+          {/* <Row>
             <Col span={24}>
-              <FormItem label='Address'>
-                <Input />
+              <FormItem label='Date of birth'>
+                <DatePicker />
               </FormItem>
             </Col>
-          </Row>
+          </Row> */}
         </Form>
-        <Card
-          style={{ marginTop: 16 }}
-          type='inner'
-          title='Inner Card title'
-          extra={<a href='#'>More</a>}
-        >
-          Inner Card content
-        </Card>
-      </Card>
     );
   }
 }

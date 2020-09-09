@@ -5,6 +5,7 @@ import {
   EllipsisOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
+import Title from 'antd/lib/skeleton/Title';
 
 const { Meta } = Card;
 
@@ -25,10 +26,8 @@ export default class AdminProfileDetail extends Component {
           <EllipsisOutlined key='ellipsis' />,
         ]}
       >
-        <Meta
-          avatar={
-            <Avatar src='https://i.pinimg.com/564x/e5/16/67/e516672250e5c78a2c1e8f791e9c5164.jpg' />
-          }
+        <Meta         
+          style={{ textAlign: 'center' }}
           title='The cute cat'
           description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?'
         />

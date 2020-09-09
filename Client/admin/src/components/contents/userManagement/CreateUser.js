@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'antd';
+import CreateUserPopUp from './CreateUserPopUp';
 
-import {
+import {  
   UserAddOutlined
 } from '@ant-design/icons';
 
@@ -47,13 +48,13 @@ export default class CreateUser extends Component {
                   Create User
                 </Button>
                 <Modal
-                title="Title"
+                title="Create User"
                 visible={visible}
                 onOk={this.handleOk}
                 confirmLoading={confirmLoading}
                 onCancel={this.handleCancel}
                 >
-                <p>{ModalText}</p>
+                  <CreateUserPopUp />
                 </Modal>
             </>
         )
