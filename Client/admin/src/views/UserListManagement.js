@@ -1,6 +1,6 @@
 import React, { useState, Component } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Button } from 'antd';
-import CreateUser from './CreateUser';
+import CreateUser from '../components/contents/userManagement/CreateUser';
 
 
 

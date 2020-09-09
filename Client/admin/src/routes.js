@@ -1,20 +1,14 @@
 import React  from 'react'
-import AddNewPost from '../src/views/components/contents/AddNewPost';
-import UserListManagement from '../src/views/components/contents/UserListManagement';
-import AdminDashBoard from './views/components/contents/AdminDashBoard';
-import PostManagement from './views/components/contents/PostManagement';
-import AdminProfile from './views/components/contents/AdminProfile';
-import Discuss from './views/components/contents/Discuss';
+import AddNewPost from '../src/views/AddNewPost';
+import UserListManagement from '../src/views/UserListManagement';
+import AdminDashBoard from './views/AdminDashBoard';
+import PostManagement from './views/PostManagement';
 
 import {
     LineChartOutlined,
     SolutionOutlined,
     FileAddOutlined,
     TeamOutlined,
-<<<<<<< HEAD
-    // FileMarkdownOutlined,
-=======
->>>>>>> 2becd47f8cbca3144373c7f8d8467e88137c8646
     UserOutlined
 
 } from '@ant-design/icons';
@@ -44,18 +38,6 @@ const routes = [
         name_routes: "User Profile",
         icon: <TeamOutlined />
     },
-    {
-        path: "/admin-profile",
-        component: <AdminProfile/>,
-        name_routes: "Admin Profile",
-        icon: <UserOutlined />
-    },
-    {
-        path: "/discuss",
-        component: <Discuss />,
-        name_routes: "Discuss",
-        icon: <UserOutlined />
-    }
 ]
 
 export default routes;

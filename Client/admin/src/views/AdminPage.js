@@ -3,6 +3,7 @@ import { Layout } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 import NavLink from '../components/sideBar/NavLink';
 import HeaderCom from '../components/header/HeaderCom';
+import AdminProfile from './AdminProfile'
 
 const { Content, Sider } = Layout;
 
@@ -30,6 +31,7 @@ class AdminPage extends Component {
                                     {child.component}
                                 </Route>
                             ))}
+                            <Route path="/admin-profile"><AdminProfile /></Route>
                         </Switch>
                         </Content>
                     </Layout>

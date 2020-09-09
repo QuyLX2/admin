@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Space } from 'antd';
-import ModalPopUp from './ModalPopUp';
-import AlertDelete from './AlertDelete';
+import ModalPopUp from '../components/contents/postManagement/ModalPopUp';
+import AlertDelete from '../components/contents/postManagement/AlertDelete';
 
 const columns = [
     {
