@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Table, Space } from 'antd';
+import { Table, Space, Button, Badge } from 'antd';
 import ModalPopUp from './ModalPopUp';
 import AlertDelete from './AlertDelete';
+import { Link } from "react-router-dom";
+
 
 const columns = [
     {
@@ -27,6 +29,13 @@ const columns = [
             <Space >
                 <AlertDelete />
                 <ModalPopUp />
+                <Badge count={9}>
+                    <Button onClick={() => console.log("day la disscuss")} block>
+                        <Link to="/discuss">
+                            Link to Discuss
+                        </Link>
+                    </Button>
+                </Badge>
             </Space>
         ),
     },
@@ -38,19 +47,7 @@ const data = [
         name: 'John Brown',
         age: 32,
         address: 'New York No. 1 Lake Park',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-    },
+    }
 ];
 
 class PostManagement extends Component {

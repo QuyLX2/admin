@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import { Layout, Menu, Dropdown, Button, message, Row, Col, Typography } from 'antd';
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
-=======
-import { Layout, Menu, Dropdown, Button, message, Row, Col } from 'antd';
-import { UserOutlined, LogoutOutlined, BellOutlined } from '@ant-design/icons';
->>>>>>> 2becd47f8cbca3144373c7f8d8467e88137c8646
 import SearchCom from './SearchCom';
 
 const { Header } = Layout;

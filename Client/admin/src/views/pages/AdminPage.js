@@ -3,6 +3,7 @@ import { Layout } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 import NavLink from '../components/sideBar/NavLink';
 import HeaderCom from '../components/header/HeaderCom';
+import Discuss from '../components/contents/Discuss';
 
 const { Content, Sider } = Layout;
 
@@ -30,6 +31,9 @@ class AdminPage extends Component {
                                     {child.component}
                                 </Route>
                             ))}
+                            <Route path="/discuss">
+                                <Discuss />
+                            </Route>
                         </Switch>
                         </Content>
                     </Layout>
