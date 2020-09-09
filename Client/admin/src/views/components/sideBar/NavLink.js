@@ -3,27 +3,15 @@ import { Menu } from 'antd';
 import routes from '../../../routes';
 import { Link } from 'react-router-dom';
 class NavLink extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         collapsed: false
-    //     }
-    // }
 
-    // toggleCollapsed = () => {
-    //     this.setState({
-    //       collapsed: !this.state.collapsed,
-    //     });
-    //   };
     render() {
         return (
             <div >
                 <Menu
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
+                    defaultSelectedKeys={['0']}
+                    defaultOpenKeys={['sub0']}
                     mode="inline"
-                    theme="dark"
-                // inlineCollapsed={this.state.collapsed}
+                    theme="light"
                 >
                     {routes.map((child, index) => (
                         <Menu.Item key={index} icon={child.icon}>
