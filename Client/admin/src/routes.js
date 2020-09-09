@@ -4,16 +4,17 @@ import UserListManagement from '../src/views/components/contents/UserListManagem
 import AdminDashBoard from './views/components/contents/AdminDashBoard';
 import PostManagement from './views/components/contents/PostManagement';
 import AdminProfile from './views/components/contents/AdminProfile';
+import Discuss from './views/components/contents/Discuss';
 
 import {
-    // PieChartOutlined,
-    // DesktopOutlined,
-    // ContainerOutlined,
     LineChartOutlined,
     SolutionOutlined,
     FileAddOutlined,
     TeamOutlined,
+<<<<<<< HEAD
     // FileMarkdownOutlined,
+=======
+>>>>>>> 2becd47f8cbca3144373c7f8d8467e88137c8646
     UserOutlined
 
 } from '@ant-design/icons';
@@ -47,6 +48,12 @@ const routes = [
         path: "/admin-profile",
         component: <AdminProfile/>,
         name_routes: "Admin Profile",
+        icon: <UserOutlined />
+    },
+    {
+        path: "/discuss",
+        component: <Discuss />,
+        name_routes: "Discuss",
         icon: <UserOutlined />
     }
 ]
