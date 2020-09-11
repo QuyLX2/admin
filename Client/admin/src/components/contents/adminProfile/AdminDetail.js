@@ -26,7 +26,7 @@ export default class AdminProfileDetail extends Component {
           <EllipsisOutlined key='ellipsis' />,
         ]}
       >
-        <Meta         
+        <Meta
           style={{ textAlign: 'center' }}
           title='The cute cat'
           description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?'

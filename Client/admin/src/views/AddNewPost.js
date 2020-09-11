@@ -29,9 +29,7 @@ class AddNewPost extends Component {
         <Row>
           <Col span={24} offset={10}>
             <Title level={2}>
-              <Title level={2}>
-                New Lesson
-              </Title>
+              <Title level={2}>New Lesson</Title>
             </Title>
           </Col>
         </Row>
