@@ -153,7 +153,7 @@ const EditableTable = () => {
         return editable ? (
           <span>
             <a
-              href='/'
+              // href='/'
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8,
@@ -168,7 +168,7 @@ const EditableTable = () => {
         ) : (
           <div style={{ display: 'flex', justifyContent: 'space-around' }}>
             <a
-              href='/'
+              // href='/'
               disabled={editingKey !== ''}
               onClick={() => edit(record)}
             >
