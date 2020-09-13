@@ -12,64 +12,72 @@ const Person = require('../../models/Person');
 //post create user
 //access: private
 router.post(
-    '/',
-    [
+  '/',
+  [
     check('name', 'Name is required').not().isEmpty(),
     check('account', 'Please include a valid account').not().isEmpty(),
-    check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })
-], async (req, res) => {
+    check(
+      'password',
+      'Please enter a password with 6 or more characters'
+    ).isLength({ min: 6 }),
+  ],
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
 
     const { name, account, password } = req.body;
 
     try {
-        let person = await Person.findOne({ account: account });
-        if (person) return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+      let person = await Person.findOne({ account: account });
+      if (person)
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'User already exists' }] });
 
-        //get users gravatar
-        const avatar = gravatar.url(account, {
-            s: '200',
-            r: 'pg',
-            d: 'mm'
-        });
+      //get users gravatar
+      const avatar = gravatar.url(account, {
+        s: '200',
+        r: 'pg',
+        d: 'mm',
+      });
 
-        person = new Person({
-            name,
-            account,
-            password,
-            avatar
-        })
+      person = new Person({
+        name,
+        account,
+        password,
+        avatar,
+      });
 
-        //hash password
-        const salt = await bcrypt.genSalt(10);
+      //hash password
+      const salt = await bcrypt.genSalt(10);
 
-        person.password = await bcrypt.hash(password, salt);
+      person.password = await bcrypt.hash(password, salt);
 
-        await person.save();
+      await person.save();
 
-        //return jsonwebtoken
-        const payload = {
-            person: {
-                id: person.id
-            }
+      //return jsonwebtoken
+      const payload = {
+        person: {
+          id: person.id,
+        },
+      };
+
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 36000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
         }
-
-        jwt.sign(
-            payload,
-            config.get('jwtSecret'),
-            { expiresIn: 36000 },
-            (err, token) => {
-                if (err) throw err;
-                res.json({ token });
-            })
+      );
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error')
+      console.error(err.message);
+      res.status(500).send('Server Error');
     }
-
-});
+  }
+);
 
 module.exports = router;
