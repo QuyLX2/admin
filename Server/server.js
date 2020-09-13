@@ -10,7 +10,6 @@ connectDB();
 // Initial Middleware
 app.use(express.json({ extended: false }));
 
-
 //Test first Api
 app.get('/', (req, res) => res.send('API running'));
 

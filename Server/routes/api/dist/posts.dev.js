@@ -23,8 +23,7 @@ var Post = require('../../models/Post'); // POST api/posts
 // Private
 
 
-router.post('/', [authen], [check('title', 'Title is required').not().isEmpty(), check('subTitle', 'Subtitle is required').not().isEmpty() // check('content', 'Content is required').not().isEmpty(),
-], function _callee(req, res) {
+router.post('/', [authen], [check('title', 'Title is required').not().isEmpty(), check('subTitle', 'Subtitle is required').not().isEmpty()], function _callee(req, res) {
   var errors, person, _req$body, subTitle, contentLesson, image, title, content, newContent, newPost, post;
 
   return regeneratorRuntime.async(function _callee$(_context) {

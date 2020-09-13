@@ -17,7 +17,6 @@ router.post(
   [
     check('title', 'Title is required').not().isEmpty(),
     check('subTitle', 'Subtitle is required').not().isEmpty(),
-    // check('content', 'Content is required').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -128,38 +127,34 @@ router.post(
 // DELETE api/comments/:id
 // Delete comments by id
 // Author: Admin can delete all comment
-router.delete(
-  '/comments/:id/:comment_id',
-  authen,
-  async (req, res) => {
-    try {
-      const post = await Post.findById(req.params.id);
+router.delete('/comments/:id/:comment_id', authen, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
 
-      // Pull out comment
-      const comment = post.comments.find(
-        (comment) => comment.id === req.params.comment_id
-      );
-      // Make sure comment exists
-      if (!comment) {
-        return res.status(404).json({ msg: 'Comment does not exist' });
-      }
-      // Check person
-      if (comment.person.toString() !== req.person.id) {
-        // Admin can delete this
-        return res.status(401).json({ msg: 'Person not authorized' });
-      }
-
-      post.comments = post.comments.filter(
-        ({ id }) => id !== req.params.comment_id
-      );
-
-      await post.save();
-
-      return res.json(post.comments);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
+    // Pull out comment
+    const comment = post.comments.find(
+      (comment) => comment.id === req.params.comment_id
+    );
+    // Make sure comment exists
+    if (!comment) {
+      return res.status(404).json({ msg: 'Comment does not exist' });
     }
+    // Check person
+    if (comment.person.toString() !== req.person.id) {
+      // Admin can delete this
+      return res.status(401).json({ msg: 'Person not authorized' });
+    }
+
+    post.comments = post.comments.filter(
+      ({ id }) => id !== req.params.comment_id
+    );
+
+    await post.save();
+
+    return res.json(post.comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
   }
-);
+});
 module.exports = router;
