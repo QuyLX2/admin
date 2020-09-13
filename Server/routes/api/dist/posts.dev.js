@@ -23,8 +23,9 @@ var Post = require('../../models/Post'); // POST api/posts
 // Private
 
 
-router.post('/', [authen], [check('title', 'Title is required').not().isEmpty(), check('subTitle', 'Subtitle is required').not().isEmpty(), check('content', 'Content is required').not().isEmpty()], function _callee(req, res) {
-  var errors, person, _req$body$content, subTitle, contentLesson, image, newContent, newPost, post;
+router.post('/', [authen], [check('title', 'Title is required').not().isEmpty(), check('subTitle', 'Subtitle is required').not().isEmpty() // check('content', 'Content is required').not().isEmpty(),
+], function _callee(req, res) {
+  var errors, person, _req$body, subTitle, contentLesson, image, title, content, newContent, newPost, post;
 
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -51,24 +52,22 @@ router.post('/', [authen], [check('title', 'Title is required').not().isEmpty(),
           // Athor create post
           // Only admin can create posts
           // All can comment on all post
-          _req$body$content = req.body.content, subTitle = _req$body$content.subTitle, contentLesson = _req$body$content.contentLesson, image = _req$body$content.image;
+          _req$body = req.body, subTitle = _req$body.subTitle, contentLesson = _req$body.contentLesson, image = _req$body.image, title = _req$body.title, content = _req$body.content;
           newContent = {
             subTitle: subTitle,
             contentLesson: contentLesson,
             image: image
           };
-          newContent.map(function (newContent) {
-            return newContent;
-          });
           newPost = new Post({
-            title: req.body.title,
+            title: title,
             content: newContent
           });
-          _context.next = 13;
+          _context.next = 12;
           return regeneratorRuntime.awrap(newPost.save());
 
-        case 13:
+        case 12:
           post = _context.sent;
+          res.json(post);
           _context.next = 20;
           break;
 
@@ -232,7 +231,7 @@ router.post('/comment/:id', [authen, checkObjectId('id'), [check('text', 'Text i
 // Delete comments by id
 // Author: Admin can delete all comment
 
-router["delete"]('/comments/:id/:comment_id', [authen, checkObjectId('id')], function _callee5(req, res) {
+router["delete"]('/comments/:id/:comment_id', authen, function _callee5(req, res) {
   var post, comment;
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
@@ -240,7 +239,7 @@ router["delete"]('/comments/:id/:comment_id', [authen, checkObjectId('id')], fun
         case 0:
           _context5.prev = 0;
           _context5.next = 3;
-          return regeneratorRuntime.awrap(Post.findById(req.params._id));
+          return regeneratorRuntime.awrap(Post.findById(req.params.id));
 
         case 3:
           post = _context5.sent;

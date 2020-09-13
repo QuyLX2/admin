@@ -17,7 +17,7 @@ router.post(
   [
     check('title', 'Title is required').not().isEmpty(),
     check('subTitle', 'Subtitle is required').not().isEmpty(),
-    check('content', 'Content is required').not().isEmpty(),
+    // check('content', 'Content is required').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -31,21 +31,21 @@ router.post(
       // Athor create post
       // Only admin can create posts
       // All can comment on all post
-      const { subTitle, contentLesson, image } = req.body.content;
+      const { subTitle, contentLesson, image, title, content } = req.body;
       const newContent = {
-        subTitle,
-        contentLesson,
-        image,
+        subTitle: subTitle,
+        contentLesson: contentLesson,
+        image: image,
       };
-      newContent.map((newContent) => newContent);
+
       const newPost = new Post({
-        title: req.body.title,
+        title: title,
         content: newContent,
       });
 
       const post = await newPost.save();
 
-      //   res.json(post);
+      res.json(post);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -130,10 +130,10 @@ router.post(
 // Author: Admin can delete all comment
 router.delete(
   '/comments/:id/:comment_id',
-  [authen, checkObjectId('id')],
+  authen,
   async (req, res) => {
     try {
-      const post = await Post.findById(req.params._id);
+      const post = await Post.findById(req.params.id);
 
       // Pull out comment
       const comment = post.comments.find(
