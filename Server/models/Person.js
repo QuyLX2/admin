@@ -14,13 +14,18 @@ const personSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role : {
+    type: String,
+    default: 'user',
+    enum: ['user', 'admin']
+  },
   avatar: {
     type: String,
   },
   date: {
     type: Date,
     default: Date.now,
-  },
+  }
 });
 
-module.exports = Person = mongoose.model('person', userSchema);
+module.exports = Person = mongoose.model('person', personSchema);

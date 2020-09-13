@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://admin:admin@mern-education.wuxin.mongodb.net/datapj?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://admin:admin@mern-education.wuxin.mongodb.net/datapj?retryWrites=true&w=majority",
+    "jwtSecret": "randomsecret"
 }
