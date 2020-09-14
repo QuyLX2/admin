@@ -16,7 +16,8 @@ var _require = require('express-validator/check'),
     validationResult = _require.validationResult,
     check = _require.check;
 
-var authen = require('../../middleware/authen');
+var _require2 = require('../../middleware/authen'),
+    authen = _require2.authen;
 
 var Person = require('../../models/Person'); //post create user
 //access: private
@@ -25,7 +26,7 @@ var Person = require('../../models/Person'); //post create user
 router.post('/', [check('name', 'Name is required').not().isEmpty(), check('account', 'Please include a valid account').not().isEmpty(), check('password', 'Please enter a password with 6 or more characters').isLength({
   min: 6
 })], function _callee(req, res) {
-  var errors, _req$body, name, account, password, person, avatar, salt, payload;
+  var errors, _req$body, name, account, password, role, person, avatar, salt, payload;
 
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -43,7 +44,7 @@ router.post('/', [check('name', 'Name is required').not().isEmpty(), check('acco
           }));
 
         case 3:
-          _req$body = req.body, name = _req$body.name, account = _req$body.account, password = _req$body.password;
+          _req$body = req.body, name = _req$body.name, account = _req$body.account, password = _req$body.password, role = _req$body.role;
           _context.prev = 4;
           _context.next = 7;
           return regeneratorRuntime.awrap(Person.findOne({
@@ -75,7 +76,8 @@ router.post('/', [check('name', 'Name is required').not().isEmpty(), check('acco
             name: name,
             account: account,
             password: password,
-            avatar: avatar
+            avatar: avatar,
+            role: role
           }); //hash password
 
           _context.next = 14;

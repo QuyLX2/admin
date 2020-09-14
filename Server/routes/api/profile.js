@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const authen = require('../../middleware/authen');
+const { authen } = require('../../middleware/authen');
 const { check, validationResult } = require('express-validator/check');
+const {
+  canViewProfile,
+  scopedProfile,
+  canAddProfile,
+} = require('../../middleware/permissions/profile/profiles');
 const request = require('request');
 const config = require('config');
-
 const Person = require('../../models/Person');
 const Profile = require('../../models/Profile');
 //get profile by id
@@ -53,7 +57,15 @@ router.post(
     // Student cant change mark and create mark
     try {
       // Admin can change and access
-      let profile = await Profile.findOne({ person: req.person.id });
+      let person = await Person.findById(req.person.id);
+      const profiles = await Profile.find().populate('user', [
+        'name',
+        'avatar',
+      ]);
+
+      // checkRole(person)
+      profile = scopedProfile(person, profiles);
+      console.log(profile);
       if (profile) {
         //update
         profile = await Profile.findOneAndUpdate(
@@ -64,9 +76,11 @@ router.post(
         return res.json(profile);
       }
       //create
-      profile = new Profile(profileFields);
-      await profile.save();
-      res.json(profile);
+      if (canAddProfile(person, profile)) {
+        newProfile = new Profile(profileFields);
+        await newProfile.save();
+        res.json(newProfile);
+      }
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
@@ -78,8 +92,16 @@ router.post(
 // access private
 router.get('/', authen, async (req, res) => {
   try {
-    // author can view
+    let person = await Person.findById(req.person.id);
+    let profile = await Profile.findOne({ person: req.person.id });
+    // // author can view
+    // if(canViewProfile(person, profile)){
+    // }
+
+    //
     const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+
+    
     res.json(profiles);
   } catch (err) {
     console.error(err.message);

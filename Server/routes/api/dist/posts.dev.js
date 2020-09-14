@@ -4,11 +4,12 @@ var express = require('express');
 
 var router = express.Router();
 
-var authen = require('../../middleware/authen');
+var _require = require('../../middleware/authen'),
+    authen = _require.authen;
 
-var _require = require('express-validator/check'),
-    check = _require.check,
-    validationResult = _require.validationResult;
+var _require2 = require('express-validator/check'),
+    check = _require2.check,
+    validationResult = _require2.validationResult;
 
 var request = require('request');
 
@@ -23,9 +24,9 @@ var Post = require('../../models/Post'); // POST api/posts
 // Private
 
 
-router.post('/', [authen], [check('title', 'Title is required').not().isEmpty(), check('subTitle', 'Subtitle is required').not().isEmpty()], function _callee(req, res) {
-  var errors, person, _req$body, subTitle, contentLesson, image, title, content, newContent, newPost, post;
-
+router.post('/', [authen], [check('title', 'Title is required').not().isEmpty() // check('subTitle', 'Subtitle is required').not().isEmpty(),
+], function _callee(req, res) {
+  var errors, person, content, title, newContent, newArr, newPost, post;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -51,37 +52,39 @@ router.post('/', [authen], [check('title', 'Title is required').not().isEmpty(),
           // Athor create post
           // Only admin can create posts
           // All can comment on all post
-          _req$body = req.body, subTitle = _req$body.subTitle, contentLesson = _req$body.contentLesson, image = _req$body.image, title = _req$body.title, content = _req$body.content;
+          content = req.body.content;
+          title = req.body.title;
           newContent = {
-            subTitle: subTitle,
-            contentLesson: contentLesson,
-            image: image
+            subTitle: req.body.content.subTitle,
+            contentLesson: req.body.content.contentLesson,
+            image: req.body.content.image
           };
+          newArr = content.unshift(newContent);
           newPost = new Post({
             title: title,
-            content: newContent
+            content: newArr
           });
-          _context.next = 12;
+          _context.next = 14;
           return regeneratorRuntime.awrap(newPost.save());
 
-        case 12:
+        case 14:
           post = _context.sent;
           res.json(post);
-          _context.next = 20;
+          _context.next = 22;
           break;
 
-        case 16:
-          _context.prev = 16;
+        case 18:
+          _context.prev = 18;
           _context.t0 = _context["catch"](3);
           console.error(_context.t0.message);
           res.status(500).send('Server Error');
 
-        case 20:
+        case 22:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[3, 16]]);
+  }, null, null, [[3, 18]]);
 }); // GET api/posts
 // Get all posts
 // Access private

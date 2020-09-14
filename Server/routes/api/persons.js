@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { validationResult, check } = require('express-validator/check');
-const authen = require('../../middleware/authen');
+const {authen} = require('../../middleware/authen');
 
 const Person = require('../../models/Person');
 
@@ -27,7 +27,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, account, password } = req.body;
+    const { name, account, password, role } = req.body;
 
     try {
       let person = await Person.findOne({ account: account });
@@ -48,6 +48,7 @@ router.post(
         account,
         password,
         avatar,
+        role
       });
 
       //hash password

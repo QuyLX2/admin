@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authen = require('../../middleware/authen');
+const {authen} = require('../../middleware/authen');
 const { check, validationResult } = require('express-validator/check');
 const request = require('request');
 const config = require('config');
@@ -16,7 +16,7 @@ router.post(
   [authen],
   [
     check('title', 'Title is required').not().isEmpty(),
-    check('subTitle', 'Subtitle is required').not().isEmpty(),
+    // check('subTitle', 'Subtitle is required').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -30,16 +30,17 @@ router.post(
       // Athor create post
       // Only admin can create posts
       // All can comment on all post
-      const { subTitle, contentLesson, image, title, content } = req.body;
+      const {content} = req.body
+      const title = req.body.title
       const newContent = {
-        subTitle: subTitle,
-        contentLesson: contentLesson,
-        image: image,
+        subTitle: req.body.content.subTitle,
+        contentLesson: req.body.content.contentLesson,
+        image: req.body.content.image,
       };
-
+      const newArr = content.unshift(newContent);
       const newPost = new Post({
         title: title,
-        content: newContent,
+        content: newArr,
       });
 
       const post = await newPost.save();

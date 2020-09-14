@@ -8,7 +8,8 @@ var _require = require('express-validator'),
 
 var router = express.Router();
 
-var authen = require('../../middleware/authen');
+var _require2 = require('../../middleware/authen'),
+    authen = _require2.authen;
 
 var bcrypt = require('bcryptjs');
 
@@ -113,7 +114,8 @@ router.post('/', [check('account', 'Please input a valid account').not().isEmpty
           //return jsonwebtoken
           payload = {
             person: {
-              id: person.id
+              id: person.id,
+              role: person.role
             }
           };
           jwt.sign(payload, config.get('jwtSecret'), {
