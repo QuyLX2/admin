@@ -1,24 +1,25 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-  person: {
-    type: mongoose.Schema.Types.ObjectId,
-  },
   title: {
     type: String,
     required: true,
   },
-  subTitle: {
-    type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-  },
+  content: [
+    {
+      subTitle: {
+        type: String,
+        required: true,
+      },
+      contentLesson: {
+        type: String,
+        required: true,
+      },
+      image: {
+        type: String,
+      }
+    },
+  ],
   comments: [
     {
       person: {

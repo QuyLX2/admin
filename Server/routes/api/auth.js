@@ -1,11 +1,10 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
 const router = express.Router();
-const authen = require('../../middleware/authen');
+const {authen} = require('../../middleware/authen');
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
-
 
 
 const Person = require('../../models/Person')
@@ -13,25 +12,27 @@ const Person = require('../../models/Person')
 //get user by token
 //access private
 router.get('/', authen, async (req, res) => {
-    try {
-        const person = await Person.findById(req.person.id).select('-password');
-        res.json(person);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
+  try {
+    const person = await Person.findById(req.person.id).select('-password');
+    res.json(person);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
-
 
 // public post request
 // authen by token
-router.post('/', [
+router.post(
+  '/',
+  [
     check('account', 'Please input a valid account').not().isEmpty(),
-    check('password', 'Password is required').exists()
-], async (req, res) => {
+    check('password', 'Password is required').exists(),
+  ],
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
     const { account, password } = req.body;
     try {
@@ -55,10 +56,10 @@ router.post('/', [
                 res.json({ token });
             });
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+      console.error(err.message);
+      res.status(500).send('Server error');
     }
-});
-
+  }
+);
 
 module.exports = router;

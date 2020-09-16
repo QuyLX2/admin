@@ -5,7 +5,6 @@ const { authGetProfiles, authSetProfile, authDeleteProfile } = require('../../mi
 const { check, validationResult } = require('express-validator/check');
 // const request = require('request');
 const config = require('config');
-
 const Person = require('../../models/Person');
 const Profile = require('../../models/Profile');
 //get profile by id
@@ -81,7 +80,8 @@ router.post(
             res.status(500).send('Server error');
         }
     }
-);
+  
+)
 
 // Update Mark
 //access private

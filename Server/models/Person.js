@@ -13,10 +13,10 @@ const personSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  role : {
+  role: {
     type: String,
-    default: 'user',
-    enum: ['user', 'admin']
+    // default: 'user',
+    enum: ['user', 'admin'],
   },
   avatar: {
     type: String,
@@ -24,7 +24,7 @@ const personSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 module.exports = Person = mongoose.model('person', personSchema);
