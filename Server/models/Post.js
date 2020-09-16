@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const postSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -17,9 +16,12 @@ const postSchema = new mongoose.Schema({
       },
       image: {
         type: String,
-      }
+      },
     },
   ],
+  exam: {
+    type: String,
+  },
   comments: [
     {
       person: {

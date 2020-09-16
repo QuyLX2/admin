@@ -58,15 +58,13 @@ router.post(
     try {
       // Admin can change and access
       let person = await Person.findById(req.person.id);
-      const profiles = await Profile.find().populate('user', [
+      let profiles = await Profile.find().populate('person', [
         'name',
         'avatar',
       ]);
 
       // checkRole(person)
-      profile = scopedProfile(person, profiles);
-      console.log(profile);
-      if (profile) {
+      if (profiles) {
         //update
         profile = await Profile.findOneAndUpdate(
           { person: req.person.id },

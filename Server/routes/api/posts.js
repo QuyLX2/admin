@@ -1,19 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const {authen} = require('../../middleware/authen');
+const { authen } = require('../../middleware/authen');
 const { check, validationResult } = require('express-validator/check');
 const request = require('request');
 const config = require('config');
 const checkObjectId = require('../../middleware/checkObjectId');
 const Person = require('../../models/Person');
 const Post = require('../../models/Post');
+const {
+  authCreatePost,
+  authDeleteComment,
+} = require('../../middleware/permissions/post/posts');
 
 // POST api/posts
 // Create posts
 // Private
 router.post(
   '/',
-  [authen],
+  [authen, authCreatePost],
   [
     check('title', 'Title is required').not().isEmpty(),
     // check('subTitle', 'Subtitle is required').not().isEmpty(),
@@ -25,33 +29,83 @@ router.post(
     }
 
     try {
-      const person = await Person.findById(req.person.id).select('-password');
-
       // Athor create post
       // Only admin can create posts
       // All can comment on all post
-      const {content} = req.body
-      const title = req.body.title
-      const newContent = {
-        subTitle: req.body.content.subTitle,
-        contentLesson: req.body.content.contentLesson,
-        image: req.body.content.image,
-      };
-      const newArr = content.unshift(newContent);
-      const newPost = new Post({
+      let { title } = req.body;
+      let newPost = new Post({
         title: title,
-        content: newArr,
       });
+      newPost = await newPost.save();
 
-      const post = await newPost.save();
-
-      res.json(post);
+      res.json(newPost);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
   }
 );
+
+// PUT content
+// Author: Admin
+router.put('/content/:id', [authen, authCreatePost], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  const { subTitle, contentLesson, image, exam } = req.body;
+  const newContent = {
+    subTitle,
+    contentLesson,
+    image,
+    exam,
+  };
+  try {
+    let post = await Post.findById(req.params.id);
+    console.log(res.body);
+    post.content.unshift(newContent);
+    await post.save();
+    res.json(post);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// Update post
+// Author: Admin
+router.post('/:id', [authen, authCreatePost], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    let { subTitle, contentLesson, image, title, exam, content } = req.body;
+    let newContent = {
+      subTitle: subTitle,
+      contentLesson: contentLesson,
+      image: image,
+    };
+
+    let updatePost = {
+      title: title,
+      content: newContent,
+      exam: exam,
+    };
+    let posts = await Post.findById(req.params.id);
+    if (posts) {
+      let post = await Post.findByIdAndUpdate(
+        req.params.id,
+        { $set: updatePost },
+        { returnOriginal: false }
+      );
+      return res.json(post);
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 // GET api/posts
 // Get all posts
@@ -70,9 +124,9 @@ router.get('/', authen, async (req, res) => {
 // DELETE posts
 // Access private
 // Author: Admin
-router.delete('/:id', [authen], async (req, res) => {
+router.delete('/:id', authen, authCreatePost, async (req, res) => {
   try {
-    const post = await Post.findById(req.params._id);
+    const post = await Post.findById(req.params.id);
 
     if (!post) {
       return res.status(404).json({ msg: 'Post not found' });
@@ -128,34 +182,38 @@ router.post(
 // DELETE api/comments/:id
 // Delete comments by id
 // Author: Admin can delete all comment
-router.delete('/comments/:id/:comment_id', authen, async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.id);
+router.delete(
+  '/comments/:id/:comment_id',
+  [authen, authDeleteComment],
+  async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
 
-    // Pull out comment
-    const comment = post.comments.find(
-      (comment) => comment.id === req.params.comment_id
-    );
-    // Make sure comment exists
-    if (!comment) {
-      return res.status(404).json({ msg: 'Comment does not exist' });
+      // Pull out comment
+      const comment = post.comments.find(
+        (comment) => comment.id === req.params.comment_id
+      );
+      // Make sure comment exists
+      if (!comment) {
+        return res.status(404).json({ msg: 'Comment does not exist' });
+      }
+      // Check person
+      if (comment.person.toString() !== req.person.id) {
+        // Admin can delete this
+        return res.status(401).json({ msg: 'Person not authorized' });
+      }
+
+      post.comments = post.comments.filter(
+        ({ id }) => id !== req.params.comment_id
+      );
+
+      await post.save();
+
+      return res.json(post.comments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
     }
-    // Check person
-    if (comment.person.toString() !== req.person.id) {
-      // Admin can delete this
-      return res.status(401).json({ msg: 'Person not authorized' });
-    }
-
-    post.comments = post.comments.filter(
-      ({ id }) => id !== req.params.comment_id
-    );
-
-    await post.save();
-
-    return res.json(post.comments);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
   }
-});
+);
 module.exports = router;

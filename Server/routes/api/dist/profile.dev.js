@@ -109,20 +109,17 @@ router.post('/', [authen, check('email', 'Email is required').isEmail(), check('
         case 15:
           person = _context2.sent;
           _context2.next = 18;
-          return regeneratorRuntime.awrap(Profile.find().populate('user', ['name', 'avatar']));
+          return regeneratorRuntime.awrap(Profile.find().populate('person', ['name', 'avatar']));
 
         case 18:
           profiles = _context2.sent;
-          // checkRole(person)
-          profile = scopedProfile(person, profiles);
-          console.log(profile);
 
-          if (!profile) {
-            _context2.next = 26;
+          if (!profiles) {
+            _context2.next = 24;
             break;
           }
 
-          _context2.next = 24;
+          _context2.next = 22;
           return regeneratorRuntime.awrap(Profile.findOneAndUpdate({
             person: req.person.id
           }, {
@@ -131,39 +128,39 @@ router.post('/', [authen, check('email', 'Email is required').isEmail(), check('
             "new": true
           }));
 
-        case 24:
+        case 22:
           profile = _context2.sent;
           return _context2.abrupt("return", res.json(profile));
 
-        case 26:
+        case 24:
           if (!canAddProfile(person, profile)) {
-            _context2.next = 31;
+            _context2.next = 29;
             break;
           }
 
           newProfile = new Profile(profileFields);
-          _context2.next = 30;
+          _context2.next = 28;
           return regeneratorRuntime.awrap(newProfile.save());
 
-        case 30:
+        case 28:
           res.json(newProfile);
 
-        case 31:
-          _context2.next = 37;
+        case 29:
+          _context2.next = 35;
           break;
 
-        case 33:
-          _context2.prev = 33;
+        case 31:
+          _context2.prev = 31;
           _context2.t0 = _context2["catch"](12);
           console.error(_context2.t0.message);
           res.status(500).send('Server error');
 
-        case 37:
+        case 35:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[12, 33]]);
+  }, null, null, [[12, 31]]);
 }); // get all profiles
 // access private
 

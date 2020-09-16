@@ -20,6 +20,9 @@ var postSchema = new mongoose.Schema({
       type: String
     }
   }],
+  exam: {
+    type: String
+  },
   comments: [{
     person: {
       type: mongoose.Schema.Types.ObjectId
