@@ -7,8 +7,9 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 
 
-const Person = require('../../models/Person')
 
+const Person = require('../../models/Person')
+// ???
 //get user by token
 //access private
 router.get('/', authen, async (req, res) => {
@@ -41,7 +42,8 @@ router.post('/', [
         //return jsonwebtoken
         const payload = {
             person: {
-                id: person.id
+                id: person.id,
+                role: person.role
             }
         };
         jwt.sign(
