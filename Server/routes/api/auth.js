@@ -6,8 +6,9 @@ const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 
-const Person = require('../../models/Person');
 
+const Person = require('../../models/Person')
+// ???
 //get user by token
 //access private
 router.get('/', authen, async (req, res) => {
@@ -35,32 +36,25 @@ router.post(
     }
     const { account, password } = req.body;
     try {
-      let person = await Person.findOne({ account: account });
-      if (!person)
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'Invalid Credentials' }] });
-      const isMatch = await bcrypt.compare(password, person.password);
-      if (!isMatch)
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'Password incorrect' }] });
-      //return jsonwebtoken
-      const payload = {
-        person: {
-          id: person.id,
-          role: person.role
-        },
-      };
-      jwt.sign(
-        payload,
-        config.get('jwtSecret'),
-        { expiresIn: 36000 },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
+        let person = await Person.findOne({ account: account });
+        if (!person) return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
+        const isMatch = await bcrypt.compare(password, person.password);
+        if (!isMatch) return res.status(400).json({ errors: [{ msg: 'Password incorrect' }] });
+        //return jsonwebtoken
+        const payload = {
+            person: {
+                id: person.id,
+                role: person.role
+            }
+        };
+        jwt.sign(
+            payload,
+            config.get('jwtSecret'),
+            { expiresIn: 36000 },
+            (err, token) => {
+                if (err) throw err;
+                res.json({ token });
+            });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');

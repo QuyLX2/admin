@@ -111,33 +111,32 @@ router.put('/content/:id', [authen, authCreatePost], function _callee2(req, res)
 
         case 8:
           post = _context2.sent;
-          console.log(res.body);
           post.content.unshift(newContent);
-          _context2.next = 13;
+          _context2.next = 12;
           return regeneratorRuntime.awrap(post.save());
 
-        case 13:
+        case 12:
           res.json(post);
-          _context2.next = 20;
+          _context2.next = 19;
           break;
 
-        case 16:
-          _context2.prev = 16;
+        case 15:
+          _context2.prev = 15;
           _context2.t0 = _context2["catch"](5);
           console.error(_context2.t0.message);
           res.status(500).send('Server Error');
 
-        case 20:
+        case 19:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[5, 16]]);
+  }, null, null, [[5, 15]]);
 }); // Update post
 // Author: Admin
 
 router.post('/:id', [authen, authCreatePost], function _callee3(req, res) {
-  var errors, _req$body2, subTitle, contentLesson, image, title, exam, content, newContent, updatePost, posts, post;
+  var errors, _req$body2, title, exam, updatePost, posts, post;
 
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
@@ -156,86 +155,143 @@ router.post('/:id', [authen, authCreatePost], function _callee3(req, res) {
 
         case 3:
           _context3.prev = 3;
-          _req$body2 = req.body, subTitle = _req$body2.subTitle, contentLesson = _req$body2.contentLesson, image = _req$body2.image, title = _req$body2.title, exam = _req$body2.exam, content = _req$body2.content;
-          newContent = {
-            subTitle: subTitle,
-            contentLesson: contentLesson,
-            image: image
-          };
+          _req$body2 = req.body, title = _req$body2.title, exam = _req$body2.exam;
           updatePost = {
             title: title,
-            content: newContent,
             exam: exam
           };
-          _context3.next = 9;
+          _context3.next = 8;
           return regeneratorRuntime.awrap(Post.findById(req.params.id));
 
-        case 9:
+        case 8:
           posts = _context3.sent;
 
           if (!posts) {
-            _context3.next = 15;
+            _context3.next = 14;
             break;
           }
 
-          _context3.next = 13;
+          _context3.next = 12;
           return regeneratorRuntime.awrap(Post.findByIdAndUpdate(req.params.id, {
             $set: updatePost
           }, {
             returnOriginal: false
           }));
 
-        case 13:
+        case 12:
           post = _context3.sent;
           return _context3.abrupt("return", res.json(post));
 
-        case 15:
-          _context3.next = 21;
+        case 14:
+          _context3.next = 20;
           break;
 
-        case 17:
-          _context3.prev = 17;
+        case 16:
+          _context3.prev = 16;
           _context3.t0 = _context3["catch"](3);
           console.error(_context3.t0.message);
           res.status(500).send('Server Error');
 
-        case 21:
+        case 20:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[3, 17]]);
-}); // GET api/posts
-// Get all posts
-// Access private
+  }, null, null, [[3, 16]]);
+}); // Update post
+// Author: Admin
 
-router.get('/', authen, function _callee4(req, res) {
-  var posts;
+router.post('/content/:id', [authen, authCreatePost], function _callee4(req, res) {
+  var errors, _req$body3, subTitle, contentLesson, image, id, updateContent, contents, content, objIndex;
+
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          _context4.prev = 0;
-          _context4.next = 3;
+          errors = validationResult(req);
+
+          if (errors.isEmpty()) {
+            _context4.next = 3;
+            break;
+          }
+
+          return _context4.abrupt("return", res.status(400).json({
+            errors: errors.array()
+          }));
+
+        case 3:
+          _context4.prev = 3;
+          _req$body3 = req.body, subTitle = _req$body3.subTitle, contentLesson = _req$body3.contentLesson, image = _req$body3.image, id = _req$body3.id;
+          updateContent = {
+            _id: id,
+            subTitle: subTitle,
+            contentLesson: contentLesson,
+            image: image
+          };
+          _context4.next = 8;
+          return regeneratorRuntime.awrap(Post.findOne({
+            _id: req.params.id
+          }).select('content'));
+
+        case 8:
+          contents = _context4.sent;
+          content = contents.content;
+          objIndex = content.findIndex(function (obj) {
+            return obj._id == id;
+          });
+          content[objIndex] = updateContent;
+          console.log(contents);
+          _context4.next = 15;
+          return regeneratorRuntime.awrap(contents.save());
+
+        case 15:
+          res.json(contents);
+          _context4.next = 22;
+          break;
+
+        case 18:
+          _context4.prev = 18;
+          _context4.t0 = _context4["catch"](3);
+          console.error(_context4.t0.message);
+          res.status(500).send('Server Error');
+
+        case 22:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  }, null, null, [[3, 18]]);
+}); // GET api/posts
+// Get all posts
+// Access private
+
+router.get('/', authen, function _callee5(req, res) {
+  var posts;
+  return regeneratorRuntime.async(function _callee5$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          _context5.next = 3;
           return regeneratorRuntime.awrap(Post.find().sort({
             date: -1
           }));
 
         case 3:
-          posts = _context4.sent;
+          posts = _context5.sent;
           res.json(posts);
-          _context4.next = 11;
+          _context5.next = 11;
           break;
 
         case 7:
-          _context4.prev = 7;
-          _context4.t0 = _context4["catch"](0);
-          console.error(_context4.t0.message);
+          _context5.prev = 7;
+          _context5.t0 = _context5["catch"](0);
+          console.error(_context5.t0.message);
           res.status(500).send('Server Error');
 
         case 11:
         case "end":
-          return _context4.stop();
+          return _context5.stop();
       }
     }
   }, null, null, [[0, 7]]);
@@ -244,48 +300,48 @@ router.get('/', authen, function _callee4(req, res) {
 // Access private
 // Author: Admin
 
-router["delete"]('/:id', authen, authCreatePost, function _callee5(req, res) {
+router["delete"]('/:id', authen, authCreatePost, function _callee6(req, res) {
   var post;
-  return regeneratorRuntime.async(function _callee5$(_context5) {
+  return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
-      switch (_context5.prev = _context5.next) {
+      switch (_context6.prev = _context6.next) {
         case 0:
-          _context5.prev = 0;
-          _context5.next = 3;
+          _context6.prev = 0;
+          _context6.next = 3;
           return regeneratorRuntime.awrap(Post.findById(req.params.id));
 
         case 3:
-          post = _context5.sent;
+          post = _context6.sent;
 
           if (post) {
-            _context5.next = 6;
+            _context6.next = 6;
             break;
           }
 
-          return _context5.abrupt("return", res.status(404).json({
+          return _context6.abrupt("return", res.status(404).json({
             msg: 'Post not found'
           }));
 
         case 6:
-          _context5.next = 8;
+          _context6.next = 8;
           return regeneratorRuntime.awrap(post.remove());
 
         case 8:
           res.json({
             msg: 'Post removed'
           });
-          _context5.next = 15;
+          _context6.next = 15;
           break;
 
         case 11:
-          _context5.prev = 11;
-          _context5.t0 = _context5["catch"](0);
-          console.error(_context5.t0.message);
+          _context6.prev = 11;
+          _context6.t0 = _context6["catch"](0);
+          console.error(_context6.t0.message);
           res.status(500).send('Server Error');
 
         case 15:
         case "end":
-          return _context5.stop();
+          return _context6.stop();
       }
     }
   }, null, null, [[0, 11]]);
@@ -293,35 +349,35 @@ router["delete"]('/:id', authen, authCreatePost, function _callee5(req, res) {
 // Post comment on a post
 // Access private
 
-router.post('/comment/:id', [authen, checkObjectId('id'), [check('text', 'Text is required').not().isEmpty()]], function _callee6(req, res) {
+router.post('/comment/:id', [authen, checkObjectId('id'), [check('text', 'Text is required').not().isEmpty()]], function _callee7(req, res) {
   var errors, person, post, newComment;
-  return regeneratorRuntime.async(function _callee6$(_context6) {
+  return regeneratorRuntime.async(function _callee7$(_context7) {
     while (1) {
-      switch (_context6.prev = _context6.next) {
+      switch (_context7.prev = _context7.next) {
         case 0:
           errors = validationResult(req);
 
           if (errors.isEmpty()) {
-            _context6.next = 3;
+            _context7.next = 3;
             break;
           }
 
-          return _context6.abrupt("return", res.status(400).json({
+          return _context7.abrupt("return", res.status(400).json({
             errors: errors.array()
           }));
 
         case 3:
-          _context6.prev = 3;
-          _context6.next = 6;
+          _context7.prev = 3;
+          _context7.next = 6;
           return regeneratorRuntime.awrap(Person.findById(req.person.id).select('-password'));
 
         case 6:
-          person = _context6.sent;
-          _context6.next = 9;
+          person = _context7.sent;
+          _context7.next = 9;
           return regeneratorRuntime.awrap(Post.findById(req.params.id));
 
         case 9:
-          post = _context6.sent;
+          post = _context7.sent;
           newComment = {
             text: req.body.text,
             name: person.name,
@@ -329,23 +385,23 @@ router.post('/comment/:id', [authen, checkObjectId('id'), [check('text', 'Text i
             person: req.person.id
           };
           post.comments.unshift(newComment);
-          _context6.next = 14;
+          _context7.next = 14;
           return regeneratorRuntime.awrap(post.save());
 
         case 14:
           res.json(post.comments);
-          _context6.next = 21;
+          _context7.next = 21;
           break;
 
         case 17:
-          _context6.prev = 17;
-          _context6.t0 = _context6["catch"](3);
-          console.error(_context6.t0.message);
+          _context7.prev = 17;
+          _context7.t0 = _context7["catch"](3);
+          console.error(_context7.t0.message);
           res.status(500).send('Server Error');
 
         case 21:
         case "end":
-          return _context6.stop();
+          return _context7.stop();
       }
     }
   }, null, null, [[3, 17]]);
@@ -353,39 +409,39 @@ router.post('/comment/:id', [authen, checkObjectId('id'), [check('text', 'Text i
 // Delete comments by id
 // Author: Admin can delete all comment
 
-router["delete"]('/comments/:id/:comment_id', [authen, authDeleteComment], function _callee7(req, res) {
+router["delete"]('/comment/:id/:comment_id', [authen, authDeleteComment], function _callee8(req, res) {
   var post, comment;
-  return regeneratorRuntime.async(function _callee7$(_context7) {
+  return regeneratorRuntime.async(function _callee8$(_context8) {
     while (1) {
-      switch (_context7.prev = _context7.next) {
+      switch (_context8.prev = _context8.next) {
         case 0:
-          _context7.prev = 0;
-          _context7.next = 3;
+          _context8.prev = 0;
+          _context8.next = 3;
           return regeneratorRuntime.awrap(Post.findById(req.params.id));
 
         case 3:
-          post = _context7.sent;
+          post = _context8.sent;
           // Pull out comment
           comment = post.comments.find(function (comment) {
             return comment.id === req.params.comment_id;
           }); // Make sure comment exists
 
           if (comment) {
-            _context7.next = 7;
+            _context8.next = 7;
             break;
           }
 
-          return _context7.abrupt("return", res.status(404).json({
+          return _context8.abrupt("return", res.status(404).json({
             msg: 'Comment does not exist'
           }));
 
         case 7:
           if (!(comment.person.toString() !== req.person.id)) {
-            _context7.next = 9;
+            _context8.next = 9;
             break;
           }
 
-          return _context7.abrupt("return", res.status(401).json({
+          return _context8.abrupt("return", res.status(401).json({
             msg: 'Person not authorized'
           }));
 
@@ -394,21 +450,21 @@ router["delete"]('/comments/:id/:comment_id', [authen, authDeleteComment], funct
             var id = _ref.id;
             return id !== req.params.comment_id;
           });
-          _context7.next = 12;
+          _context8.next = 12;
           return regeneratorRuntime.awrap(post.save());
 
         case 12:
-          return _context7.abrupt("return", res.json(post.comments));
+          return _context8.abrupt("return", res.json(post.comments));
 
         case 15:
-          _context7.prev = 15;
-          _context7.t0 = _context7["catch"](0);
-          console.error(_context7.t0.message);
+          _context8.prev = 15;
+          _context8.t0 = _context8["catch"](0);
+          console.error(_context8.t0.message);
           res.status(500).send('Server Error');
 
         case 19:
         case "end":
-          return _context7.stop();
+          return _context8.stop();
       }
     }
   }, null, null, [[0, 15]]);

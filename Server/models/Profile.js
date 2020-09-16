@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const profileSchema = new mongoose.Schema({
   person: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'person',
+    ref: 'person'
   },
   dateOfBirth: {
     type: Date,
-    required: true,
+    // required: true,
   },
   degree: {
     type: String,
@@ -23,10 +23,10 @@ const profileSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    required: true,
+    // required: true,
   },
   mark: {
-    type: [Number],
+    type: Array,
   },
   date: {
     type: Date,

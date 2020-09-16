@@ -1,18 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const { authen } = require('../../middleware/authen');
-const { check, validationResult } = require('express-validator/check');
 const {
-  canViewProfile,
-  scopedProfile,
-  canAddProfile,
-} = require('../../middleware/permissions/profile/profiles');
-const request = require('request');
+  authGetProfiles,
+  authSetProfile,
+  authDeleteProfile,
+} = require('../../middleware/permissions/profile/authProfile');
+const { check, validationResult } = require('express-validator/check');
+// const request = require('request');
 const config = require('config');
 const Person = require('../../models/Person');
 const Profile = require('../../models/Profile');
 //get profile by id
 //access private
+// ????
 router.get('/me', authen, async (req, res) => {
   try {
     const profile = await Profile.findOne({
@@ -29,12 +30,14 @@ router.get('/me', authen, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
 //post request
 //create and update person profile
 router.post(
   '/',
   [
     authen,
+    // authSetProfile,
     check('email', 'Email is required').isEmail(),
     check('phone', 'Phone is required').not().isEmpty(),
   ],
@@ -43,7 +46,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { dateOfBirth, degree, email, phone, address, mark } = req.body;
+    const { dateOfBirth, degree, email, phone, address } = req.body;
     //build profile object
     const profileFields = {};
     profileFields.person = req.person.id;
@@ -52,33 +55,22 @@ router.post(
     if (email) profileFields.email = email;
     if (phone) profileFields.phone = phone;
     if (address) profileFields.address = address;
-    if (mark) profileFields.mark = mark;
-    // Need authorization
-    // Student cant change mark and create mark
     try {
-      // Admin can change and access
-      let person = await Person.findById(req.person.id);
-      let profiles = await Profile.find().populate('person', [
-        'name',
-        'avatar',
-      ]);
-
-      // checkRole(person)
-      if (profiles) {
+      let profile = await Profile.findOne({ person: req.person.id });
+      if (profile) {
         //update
         profile = await Profile.findOneAndUpdate(
           { person: req.person.id },
           { $set: profileFields },
           { new: true }
         );
+        await profile.save();
         return res.json(profile);
       }
       //create
-      if (canAddProfile(person, profile)) {
-        newProfile = new Profile(profileFields);
-        await newProfile.save();
-        res.json(newProfile);
-      }
+      profile = new Profile(profileFields);
+      await profile.save();
+      res.json(profile);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
@@ -86,24 +78,61 @@ router.post(
   }
 );
 
+// Update Mark
+//access private
+router.put('/mark/:id', authen, authSetProfile, async (req, res) => {
+  const mark = req.body.mark;
+  try {
+    let profile = await Profile.findById(req.params.id);
+    profile.mark = mark;
+    await profile.save();
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // get all profiles
 // access private
-router.get('/', authen, async (req, res) => {
+router.get(
+  '/',
+  authen,
+  // authGetProfiles,
+  async (req, res) => {
+    try {
+      if (req.person.role === 'user') {
+        const profiles = await Profile.find()
+          // .populate('person', ['name', 'avatar'])
+          .populate({ path: 'person', select: 'name avatar -_id' });
+        profileFr = profiles.map((profile) => profile.person);
+        return res.json(profileFr);
+      }
+      const profiles = await Profile.find().populate('person', [
+        'name',
+        'avatar',
+      ]);
+      res.json(profiles);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
+//delete profile person
+// delete person(student), delete post(comment)
+router.delete('/:id', authen, authDeleteProfile, async (req, res) => {
   try {
-    let person = await Person.findById(req.person.id);
-    let profile = await Profile.findOne({ person: req.person.id });
-    // // author can view
-    // if(canViewProfile(person, profile)){
-    // }
-
-    //
-    const profiles = await Profile.find().populate('user', ['name', 'avatar']);
-
-    
-    res.json(profiles);
+    let personId = await Profile.findById(req.params.id).select('person -_id');
+    console.log(personId);
+    await Profile.findOneAndRemove({ _id: req.params.id });
+    await Person.findOneAndRemove({ id: personId });
+    res.json({ msg: 'Person deleted' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
+
 module.exports = router;

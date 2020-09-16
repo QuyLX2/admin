@@ -62,7 +62,6 @@ router.put('/content/:id', [authen, authCreatePost], async (req, res) => {
   };
   try {
     let post = await Post.findById(req.params.id);
-    console.log(res.body);
     post.content.unshift(newContent);
     await post.save();
     res.json(post);
@@ -80,16 +79,10 @@ router.post('/:id', [authen, authCreatePost], async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   try {
-    let { subTitle, contentLesson, image, title, exam, content } = req.body;
-    let newContent = {
-      subTitle: subTitle,
-      contentLesson: contentLesson,
-      image: image,
-    };
+    let { title, exam } = req.body;
 
     let updatePost = {
       title: title,
-      content: newContent,
       exam: exam,
     };
     let posts = await Post.findById(req.params.id);
@@ -101,6 +94,35 @@ router.post('/:id', [authen, authCreatePost], async (req, res) => {
       );
       return res.json(post);
     }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// Update post
+// Author: Admin
+router.post('/content/:id', [authen, authCreatePost], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    let { subTitle, contentLesson, image, id } = req.body;
+
+    let updateContent = {
+      _id: id,
+      subTitle: subTitle,
+      contentLesson: contentLesson,
+      image: image,
+    };
+    let contents = await Post.findOne({ _id: req.params.id }).select('content');
+    let content = contents.content;
+    let objIndex = content.findIndex((obj) => obj._id == id);
+    content[objIndex] = updateContent;
+    console.log(contents);
+    await contents.save();
+    res.json(contents);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -183,7 +205,7 @@ router.post(
 // Delete comments by id
 // Author: Admin can delete all comment
 router.delete(
-  '/comments/:id/:comment_id',
+  '/comment/:id/:comment_id',
   [authen, authDeleteComment],
   async (req, res) => {
     try {
