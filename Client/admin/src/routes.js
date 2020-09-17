@@ -10,7 +10,7 @@ import {
     SolutionOutlined,
     FileAddOutlined,
     TeamOutlined,
-
+    UserOutlined
 } from '@ant-design/icons';
 
 const routes = [
@@ -42,7 +42,7 @@ const routes = [
         path: "/admin-profile",
         component: <AdminProfile />,
         name_routes: "Admin Profile",
-        icon: <TeamOutlined />
+        icon: <UserOutlined />
     },
 ]
 

@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js "
+    "server": "nodemon server.js ",
+    "client": "npm start --prefix Client/admin",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "license": "MIT",
   "dependencies": {

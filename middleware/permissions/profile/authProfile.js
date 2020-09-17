@@ -3,7 +3,7 @@ function canViewProfile(person) {
   return person.role === "admin"
   
 }
-function canUpdateProfile(person, req) {
+function canUpdateProfile(person) {
   return person.role === "admin" 
 }
 
@@ -11,13 +11,13 @@ function canDeleteProfile(person) {
   return person.role === "admin"
 }
 
-function authGetProfiles(req, res, next) {
-  if (!canViewProfile(req.person)) {
-    res.status(401)
-    return res.send('Not Allowed')
-  }
-  next();
-}
+// function authGetProfiles(req, res, next) {
+//   if (!canViewProfile(req.person)) {
+//     res.status(401)
+//     return res.send('Not Allowed')
+//   }
+//   next();
+// }
 
 function authDeleteProfile(req, res, next) {
   if (!canDeleteProfile(req.person)) {
@@ -45,7 +45,7 @@ function authCreateUser(req, res, next) {
 }
 
 module.exports = {
-  authGetProfiles,
+  // authGetProfiles,
   authSetProfile,
   authDeleteProfile,
   authCreateUser
