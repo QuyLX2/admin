@@ -37,7 +37,6 @@ router.post(
   '/',
   [
     authen,
-    // authSetProfile,
     check('email', 'Email is required').isEmail(),
     check('phone', 'Phone is required').not().isEmpty(),
   ],
@@ -84,7 +83,8 @@ router.put('/mark/:id', authen, authSetProfile, async (req, res) => {
   const mark = req.body.mark;
   try {
     let profile = await Profile.findById(req.params.id);
-    profile.mark = mark;
+        profile.mark = mark;
+
     await profile.save();
     res.json(profile);
   } catch (err) {
@@ -98,12 +98,10 @@ router.put('/mark/:id', authen, authSetProfile, async (req, res) => {
 router.get(
   '/',
   authen,
-  // authGetProfiles,
   async (req, res) => {
     try {
       if (req.person.role === 'user') {
         const profiles = await Profile.find()
-          // .populate('person', ['name', 'avatar'])
           .populate({ path: 'person', select: 'name avatar -_id' });
         profileFr = profiles.map((profile) => profile.person);
         return res.json(profileFr);
@@ -125,7 +123,6 @@ router.get(
 router.delete('/:id', authen, authDeleteProfile, async (req, res) => {
   try {
     let personId = await Profile.findById(req.params.id).select('person -_id');
-    console.log(personId);
     await Profile.findOneAndRemove({ _id: req.params.id });
     await Person.findOneAndRemove({ id: personId });
     res.json({ msg: 'Person deleted' });

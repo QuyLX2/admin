@@ -70,8 +70,7 @@ router.get('/me', authen, function _callee(req, res) {
 }); //post request
 //create and update person profile
 
-router.post('/', [authen, // authSetProfile,
-check('email', 'Email is required').isEmail(), check('phone', 'Phone is required').not().isEmpty()], function _callee2(req, res) {
+router.post('/', [authen, check('email', 'Email is required').isEmail(), check('phone', 'Phone is required').not().isEmpty()], function _callee2(req, res) {
   var errors, _req$body, dateOfBirth, degree, email, phone, address, profileFields, profile;
 
   return regeneratorRuntime.async(function _callee2$(_context2) {
@@ -193,8 +192,7 @@ router.put('/mark/:id', authen, authSetProfile, function _callee3(req, res) {
 }); // get all profiles
 // access private
 
-router.get('/', authen, // authGetProfiles,
-function _callee4(req, res) {
+router.get('/', authen, function _callee4(req, res) {
   var _profiles, profiles;
 
   return regeneratorRuntime.async(function _callee4$(_context4) {
@@ -209,8 +207,7 @@ function _callee4(req, res) {
           }
 
           _context4.next = 4;
-          return regeneratorRuntime.awrap(Profile.find() // .populate('person', ['name', 'avatar'])
-          .populate({
+          return regeneratorRuntime.awrap(Profile.find().populate({
             path: 'person',
             select: 'name avatar -_id'
           }));
@@ -259,36 +256,35 @@ router["delete"]('/:id', authen, authDeleteProfile, function _callee5(req, res) 
 
         case 3:
           personId = _context5.sent;
-          console.log(personId);
-          _context5.next = 7;
+          _context5.next = 6;
           return regeneratorRuntime.awrap(Profile.findOneAndRemove({
             _id: req.params.id
           }));
 
-        case 7:
-          _context5.next = 9;
+        case 6:
+          _context5.next = 8;
           return regeneratorRuntime.awrap(Person.findOneAndRemove({
             id: personId
           }));
 
-        case 9:
+        case 8:
           res.json({
             msg: 'Person deleted'
           });
-          _context5.next = 16;
+          _context5.next = 15;
           break;
 
-        case 12:
-          _context5.prev = 12;
+        case 11:
+          _context5.prev = 11;
           _context5.t0 = _context5["catch"](0);
           console.error(_context5.t0.message);
           res.status(500).send('Server Error');
 
-        case 16:
+        case 15:
         case "end":
           return _context5.stop();
       }
     }
-  }, null, null, [[0, 12]]);
+  }, null, null, [[0, 11]]);
 });
 module.exports = router;
