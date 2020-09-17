@@ -2,15 +2,15 @@ const express = require('express');
 const router = express.Router();
 const { authen } = require('../../middleware/authen');
 const {
-  authGetProfiles,
+  // authGetProfiles,
   authSetProfile,
   authDeleteProfile,
 } = require('../../middleware/permissions/profile/authProfile');
 const { check, validationResult } = require('express-validator/check');
-// const request = require('request');
 const config = require('config');
 const Person = require('../../models/Person');
 const Profile = require('../../models/Profile');
+// const request = require('request');
 //get profile by id
 //access private
 // ????
