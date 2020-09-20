@@ -1,7 +1,7 @@
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import CreateUser from '../components/contents/userManagement/CreateUser';
 import SearchBar from '../components/Search/SearchBar';
-
+import { connect } from 'react-redux';
 import {
   Table,
   Input,
@@ -55,8 +55,8 @@ const EditableCell = ({
           {inputNode}
         </Form.Item>
       ) : (
-        children
-      )}
+          children
+        )}
     </td>
   );
 };
@@ -116,33 +116,9 @@ const EditableTable = () => {
       editable: true,
     },
     {
-      title: 'Class',
-      dataIndex: 'class',
-      width: '10%',
-      editable: true,
-    },
-    {
-      title: 'Test 1',
-      dataIndex: 'test1',
-      width: '10%',
-      editable: true,
-    },
-    {
-      title: 'Test 2',
-      dataIndex: 'test2',
-      width: '10%',
-      editable: true,
-    },
-    {
       title: 'Average Mark',
       dataIndex: 'mark',
       width: '20%',
-      editable: true,
-    },
-    {
-      title: 'Rank',
-      dataIndex: 'rank',
-      width: '10%',
       editable: true,
     },
     {
@@ -166,21 +142,21 @@ const EditableTable = () => {
             </Popconfirm>
           </span>
         ) : (
-          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <a
-              // href='/'
-              disabled={editingKey !== ''}
-              onClick={() => edit(record)}
-            >
-              <Button type='primary'>Edit</Button>
-            </a>
-            <Popconfirm title='Sure to delete?'>
-              <Button type='primary' danger>
-                Delete
+            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <a
+                // href='/'
+                disabled={editingKey !== ''}
+                onClick={() => edit(record)}
+              >
+                <Button type='primary'>Edit</Button>
+              </a>
+              <Popconfirm title='Sure to delete?'>
+                <Button type='primary' danger>
+                  Delete
               </Button>
-            </Popconfirm>
-          </div>
-        );
+              </Popconfirm>
+            </div>
+          );
       },
     },
   ];
@@ -220,31 +196,30 @@ const EditableTable = () => {
   );
 };
 
-class UserListManagement extends Component {
-  render() {
-    return (
-      <div>
-        <Title style={{ textAlign: 'center' }} level={2}>
-          Student List
+const UserListManagement = () => {
+  return (
+    <div>
+      <Title style={{ textAlign: 'center' }} level={2}>
+        Student List
         </Title>
-        <Row
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            paddingBottom: '10px',
-          }}
-        >
-          <Col span={6}>
-            <SearchBar />
-          </Col>
-          <Col span={6} style={{ textAlign: 'right' }}>
-            <CreateUser />
-          </Col>
-        </Row>
-        <EditableTable />
-      </div>
-    );
-  }
+      <Row
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          paddingBottom: '10px',
+        }}
+      >
+        <Col span={6}>
+          <SearchBar />
+        </Col>
+        <Col span={6} style={{ textAlign: 'right' }}>
+          <CreateUser />
+        </Col>
+      </Row>
+      <EditableTable />
+    </div>
+  );
 }
 
-export default UserListManagement;
+
+export default connect()(UserListManagement);

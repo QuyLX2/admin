@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../actions/auth';
+import { Redirect } from 'react-router-dom';
+import AlertWarning from './Alert';
 import {
   Typography,
   Card,
   Form,
   Input,
   Button,
-  Row,
-  Col,
-  Space,
-  Image,
 } from 'antd';
+
 
 const { Title } = Typography;
 
@@ -21,99 +23,137 @@ const tailLayout = {
   wrapperCol: { offset: 4, span: 20 },
 };
 
-class LoginPage extends Component {
-  onFinish = (values) => {
-    console.log('Success:', values);
+const LoginPage = ({ login, isAuthenticated, loading }) => {
+
+  const onFinish = (values) => {
+    login(values.account, values.password)
   };
-  onFinishFailed = (errorInfo) => {
+
+  const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-  render() {
-    return (
-      <div
+  
+  if (isAuthenticated) {
+    return <Redirect to="/admin" />
+  }
+  return (
+    <div
+      style={{
+        height: '100vh',
+        width: '100%',
+        // background: 'rgb(178,44,204)',
+        background:
+          'linear-gradient(45deg, rgba(178,44,204,1) 28%, rgba(252,70,107,1) 89%)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Card
         style={{
-          height: '100vh',
-          width: '100%',
-          background: 'rgb(178,44,204)',
-          background:
-            'linear-gradient(45deg, rgba(178,44,204,1) 28%, rgba(252,70,107,1) 89%)',
+          width: '50%',
+          height: '60vh',
+          borderRadius: '15px',
+          boxShadow: '-1px 2px 18px 0px rgba(15,15,15,0.43)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
         }}
       >
-        <Card
-          style={{
-            width: '50%',
-            height: '60vh',
-            borderRadius: '15px',
-            boxShadow: '-1px 2px 18px 0px rgba(15,15,15,0.43)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Title style={{ textAlign: 'center' }} level={1}>
-            LOGIN
+        <Title style={{ textAlign: 'center' }} level={1}>
+          LOGIN
           </Title>
-          <div style={{ width: 500 }}>
-            <Form
-              {...layout}
-              name='basic'
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={this.onFinish}
-              onFinishFailed={this.onFinishFailed}
+        <div style={{ width: 500 }}>
+
+          <Form
+            {...layout}
+            name='basic'
+            initialValues={{
+              remember: true,
+            }}
+            id="myForm"
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+          >
+            <Form.Item
+              label='Account'
+              name='account'
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your username!',
+                },
+              ]}
             >
-              <Form.Item
-                label='Username'
-                name='username'
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input your username!',
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
+              <Input
+                style={{
+                  width: '100%',
+                  height: 50,
+                  borderRadius: 10,
+                }}
+                name='account'
+              />
+            </Form.Item>
 
-              <Form.Item
-                label='Password'
+            <Form.Item
+              label='Password'
+              name='password'
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+
+              ]}
+            >
+              <Input.Password
+                style={{
+                  width: '100%',
+                  height: 50,
+                  borderRadius: 10,
+                }}
                 name='password'
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input your password!',
-                  },
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
 
-              <Form.Item {...tailLayout}>
-                <Button
-                  style={{
-                    width: '100%',
-                    background: 'rgb(178,44,204)',
-                    background:
-                      'linear-gradient(45deg, rgba(178,44,204,1) 36%, rgba(227,48,103,1) 70%)',
-                    borderRadius: 10,
-                    color: '#fff',
-                  }}
-                  htmlType='submit'
-                >
-                  Login
-                </Button>
-              </Form.Item>
-            </Form>
-          </div>
-        </Card>
-      </div>
-    );
-  }
+              />
+            </Form.Item>
+
+            <Form.Item {...tailLayout}>
+              <Button
+                style={{
+                  width: '100%',
+                  height: 50,
+                  // background: 'rgb(178,44,204)',
+                  background:
+                    'linear-gradient(45deg, rgba(178,44,204,1) 36%, rgba(227,48,103,1) 70%)',
+                  borderRadius: 10,
+                  color: '#fff',
+                }}
+                form="myForm"
+                key="submit"
+                htmlType='submit'
+              >
+                Login
+              </Button>
+              <AlertWarning />
+            </Form.Item>
+          </Form>
+        </div>
+      </Card>
+    </div>
+  );
 }
 
-export default LoginPage;
+LoginPage.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+  loading: PropTypes.bool,
+
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  loading: state.auth.loading
+})
+
+export default connect(mapStateToProps, { login })(LoginPage);

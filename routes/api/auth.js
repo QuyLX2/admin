@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken');
 
 
 const Person = require('../../models/Person')
-// ???
 //get user by token
 //access private
 router.get('/', authen, async (req, res) => {
