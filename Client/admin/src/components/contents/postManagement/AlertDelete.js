@@ -31,12 +31,11 @@ class AlertDelete extends Component {
                     Delete
                 </Button>
                 <Modal
-                    title="Basic Modal"
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
-                    <p>Sure to delete</p>
+                    <h3>Sure to delete?</h3>
                 </Modal>
             </>
         );

@@ -153,7 +153,7 @@ const EditableTable = () => {
         return editable ? (
           <span>
             <a
-              // href='/'
+              href='!#'
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8,

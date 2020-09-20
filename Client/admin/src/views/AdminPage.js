@@ -3,9 +3,8 @@ import { Layout } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 import NavLink from '../components/sideBar/NavLink';
 import HeaderCom from '../components/header/HeaderCom';
-import AdminProfile from './AdminProfile';
 import Discuss from '../components/contents/postManagement/Discuss';
-
+import EditPost from '../components/contents/postManagement/EditPost';
 const { Content, Sider } = Layout;
 
 class AdminPage extends Component {
@@ -32,6 +31,9 @@ class AdminPage extends Component {
                     {child.component}
                   </Route>
                 ))}
+                <Route path='/edit-post'>
+                  <EditPost />
+                </Route>
                 <Route path='/discuss'>
                   <Discuss />
                 </Route>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Table, Space, Button, Badge, Typography, Row, Col } from 'antd';
-import ModalPopUp from '../components/contents/postManagement/ModalPopUp';
 import AlertDelete from '../components/contents/postManagement/AlertDelete';
 import { Link } from 'react-router-dom';
 import SearchBar from '../components/Search/SearchBar';
@@ -30,7 +29,9 @@ const columns = [
     render: () => (
       <Space>
         <AlertDelete />
-        <ModalPopUp />
+        <Button type='primary'>
+          <Link to='/edit-post'>Edit Post</Link>
+        </Button>
         <Badge count={9}>
           <Button onClick={() => console.log('day la disscuss')} block>
             <Link to='/discuss'>Link to Discuss</Link>

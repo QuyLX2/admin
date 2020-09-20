@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Modal, Button } from 'antd';
 import CreateUserPopUp from './CreateUserPopUp';
 
-import {  
-  UserAddOutlined
-} from '@ant-design/icons';
+import { UserAddOutlined } from '@ant-design/icons';
 
 export default class CreateUser extends Component {
-    state = {
+  state = {
     ModalText: 'Content of the modal',
     visible: false,
     confirmLoading: false,
@@ -39,24 +37,28 @@ export default class CreateUser extends Component {
     });
   };
 
-    render() {
-        const { visible, confirmLoading, ModalText } = this.state;
-        return (    
-            <>
-                <Button style={{backgroundColor: "#389e0d", color:"#fff"}}  onClick={this.showModal}>
-                  <UserAddOutlined />
-                  Create User
-                </Button>
-                <Modal
-                title="Create User"
-                visible={visible}
-                onOk={this.handleOk}
-                confirmLoading={confirmLoading}
-                onCancel={this.handleCancel}
-                >
-                  <CreateUserPopUp />
-                </Modal>
-            </>
-        )
-    }
+  render() {
+    const { visible, confirmLoading } = this.state;
+    return (
+      <>
+        <Button
+          style={{ backgroundColor: '#389e0d', color: '#fff' }}
+          onClick={this.showModal}
+        >
+          <UserAddOutlined />
+          Create User
+        </Button>
+        <Modal
+          style={{ textAlign: 'center' }}
+          title='Create User'
+          visible={visible}
+          onOk={this.handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={this.handleCancel}
+        >
+          <CreateUserPopUp />
+        </Modal>
+      </>
+    );
+  }
 }

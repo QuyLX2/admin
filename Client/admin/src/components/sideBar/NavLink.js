@@ -3,11 +3,8 @@ import { Menu } from 'antd';
 import routes from '../../routes';
 import { Link } from 'react-router-dom';
 
-const menuItems = ['projects', 'about'];
-
 class NavLink extends Component {
   render() {
-    const activeStyle = { color: '#ff3333' };
     return (
       <div>
         <Menu

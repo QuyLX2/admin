@@ -33,9 +33,12 @@ class AddNewPost extends Component {
             </Title>
           </Col>
         </Row>
-        <Row>
-          <Col span={12}>
+        <Row gutter={10}>
+          <Col span={6}>
             <Input placeholder="Lesson's Title" />
+          </Col>
+          <Col span={6}>
+            <Input placeholder="Exam" />
           </Col>
           <Col span={5} offset={7} style={{ textAlign: 'right' }}>
             <Button

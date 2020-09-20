@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Card, Avatar } from 'antd';
+import { Card } from 'antd';
 import {
   EditOutlined,
   EllipsisOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
-import Title from 'antd/lib/skeleton/Title';
 
 const { Meta } = Card;
 
