@@ -1,27 +1,56 @@
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 import { Menu } from 'antd';
 import routes from '../../routes';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getAllProfiles, getProfile } from '../../actions/profile';
+import { getAllPosts } from '../../actions/post';
 
-class NavLink extends Component {
-  render() {
-    return (
-      <div>
-        <Menu
-          // defaultSelectedKeys={['0']}
-          // defaultOpenKeys={['sub0']}
-          mode='inline'
-          theme='light'
-        >
-          {routes.map((child, index) => (
-            <Menu.Item key={index} icon={child.icon}>
-              <Link to={child.path}>{child.name_routes}</Link>
-            </Menu.Item>
-          ))}
-        </Menu>
-      </div>
-    );
+
+const NavLink = ({ getAllProfiles, getProfile, getAllPosts }) => {
+
+  const callApi = (action) => {
+    switch (action) {
+      case 'User Management':
+        return getAllProfiles();
+      case 'Admin Profile':
+        return getProfile();
+      case 'Post Management':
+        return getAllPosts();
+      default:
+        break;
+    }
   }
+
+
+  return (
+    <Fragment>
+      <Menu
+        defaultSelectedKeys={['0']}
+        defaultOpenKeys={['sub0']}
+        mode='inline'
+        theme='light'
+      >
+        {routes.map((child, index) => (
+          <Menu.Item key={index} icon={child.icon}>
+            <Link
+              onClick={() => callApi(child.name_routes)}
+              to={child.path}
+            >
+              {child.name_routes}
+            </Link>
+          </Menu.Item>
+        ))}
+      </Menu>
+    </Fragment>
+  );
 }
 
-export default NavLink;
+NavLink.propsTypes = {
+  getAllProfiles: PropTypes.func.isRequired,
+  getProfile: PropTypes.func.isRequired,
+  getAllPosts: PropTypes.func.isRequired,
+}
+
+export default connect(null, { getAllProfiles, getProfile, getAllPosts })(NavLink);

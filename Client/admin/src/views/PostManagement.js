@@ -1,75 +1,42 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Table, Space, Button, Badge, Typography, Row, Col } from 'antd';
 import AlertDelete from '../components/contents/postManagement/AlertDelete';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import SearchBar from '../components/Search/SearchBar';
+import { connect } from 'react-redux';
+import { getAllPosts } from '../actions/post';
+import PostTable from '../components/contents/postManagement/PostTable'
 
 const { Title } = Typography;
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a href='/'>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: () => (
-      <Space>
-        <AlertDelete />
-        <Button type='primary'>
-          <Link to='/edit-post'>Edit Post</Link>
-        </Button>
-        <Badge count={9}>
-          <Button onClick={() => console.log('day la disscuss')} block>
-            <Link to='/discuss'>Link to Discuss</Link>
-          </Button>
-        </Badge>
-      </Space>
-    ),
-  },
-];
 
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-];
+const PostManagement = ({ getAllPosts }) => {
+  useEffect(() => {
+    getAllPosts();
+  }, [getAllPosts]);
+  return (
+    <>
+      <Title style={{ textAlign: 'center' }} level={2}>
+        Posts Management
+      </Title>
+      
+      <Row>
+        <Col offset={19} style={{ paddingBottom: '10px', textAlign: 'right' }}>
+          <SearchBar />
+        </Col>
+      </Row>
+      <PostTable/>
+    </>
+  );
+};
 
-class PostManagement extends Component {
-  render() {
-    return (
-      <>
-        <Title style={{ textAlign: 'center' }} level={2}>
-          Post Management
-        </Title>
-        <Row>
-          <Col
-            offset={19}
-            style={{ paddingBottom: '10px', textAlign: 'right' }}
-          >
-            <SearchBar />
-          </Col>
-        </Row>
-        <Table columns={columns} dataSource={data} />
-      </>
-    );
-  }
-}
+PostManagement.propTypes = {
+  getAllPosts: PropTypes.func.isRequired,
+};
 
-export default PostManagement;
+// const mapStateToProps = (state) => ({
+//   post: state.post,
+// });
+
+export default connect(null, { getAllPosts })(PostManagement);

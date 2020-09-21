@@ -1,49 +1,53 @@
-import React  from 'react'
+import React from 'react'
 import AddNewPost from '../src/views/AddNewPost';
 import UserListManagement from '../src/views/UserListManagement';
-import AdminDashBoard from './views/AdminDashBoard';
+import HomeAdmin from './views/HomeAdmin';
 import PostManagement from './views/PostManagement';
 import AdminProfile from './views/AdminProfile';
 
+
 import {
-    LineChartOutlined,
     SolutionOutlined,
     FileAddOutlined,
     TeamOutlined,
-    UserOutlined
+    UserOutlined,
+    CodeSandboxOutlined
 } from '@ant-design/icons';
 
 const routes = [
     {
-        path: "/admin-dashboard",
-        component: <AdminDashBoard/>,
-        name_routes: "Admin Dashboard",
-        icon: <LineChartOutlined />
+        path: "/home",
+        component: <HomeAdmin />,
+        name_routes: "Home",
+        icon: <CodeSandboxOutlined />,
     },
     {
         path: "/add-new-post",
-        component: <AddNewPost/>,
+        component: <AddNewPost />,
         name_routes: "New Post",
-        icon: <FileAddOutlined />
+        icon: <FileAddOutlined />,
+
     },
     {
-        path: "/post-manager",
-        component: <PostManagement/>,
+        path: "/admin/post-manager",
+        component: <PostManagement />,
         name_routes: "Post Management",
-        icon: <SolutionOutlined />
+        icon: <SolutionOutlined />,
     },
     {
         path: "/mana-user-profile",
-        component: <UserListManagement/>,
+        component: <UserListManagement />,
         name_routes: "User Management",
-        icon: <TeamOutlined />
+        icon: <TeamOutlined />,
     },
     {
         path: "/admin-profile",
         component: <AdminProfile />,
         name_routes: "Admin Profile",
-        icon: <UserOutlined />
+        icon: <UserOutlined />,
     },
 ]
+
+
 
 export default routes;
