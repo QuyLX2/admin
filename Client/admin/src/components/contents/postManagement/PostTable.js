@@ -11,7 +11,6 @@ const PostTable = ({ post: { posts } }) => {
   //   useEffect(() => {
   //     getAllPosts();
   //   }, [getAllPosts]);
-  // console.log(posts.title);
   const columns = [
     {
       title: 'Title',
@@ -44,15 +43,9 @@ const PostTable = ({ post: { posts } }) => {
     let datas = {};
     datas.Title = post.title;
     datas.Subtitle = post.content.subTitle;
-    return datas
+    return datas;
   });
-  //   {
-  //     posts.map((post) => {
-  //       data.push({
-  //         Title: post.title,
-  //       });
-  //     });
-  //   }
+
   return (
     <>
       <Table columns={columns} dataSource={data} />
