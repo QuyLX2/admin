@@ -5,7 +5,6 @@ import HomeAdmin from './views/HomeAdmin';
 import PostManagement from './views/PostManagement';
 import AdminProfile from './views/AdminProfile';
 
-import { getAllProfiles } from './actions/profile';
 
 import {
     SolutionOutlined,
@@ -17,18 +16,16 @@ import {
 
 const routes = [
     {
-        path: "/admin/home",
+        path: "/home",
         component: <HomeAdmin />,
         name_routes: "Home",
         icon: <CodeSandboxOutlined />,
-        callApi: null
     },
     {
-        path: "/admin/add-new-post",
+        path: "/add-new-post",
         component: <AddNewPost />,
         name_routes: "New Post",
         icon: <FileAddOutlined />,
-        callApi: null
 
     },
     {
@@ -38,18 +35,16 @@ const routes = [
         icon: <SolutionOutlined />,
     },
     {
-        path: "/admin/mana-user-profile",
+        path: "/mana-user-profile",
         component: <UserListManagement />,
         name_routes: "User Management",
         icon: <TeamOutlined />,
-        callApi: getAllProfiles
     },
     {
-        path: "/admin/admin-profile",
+        path: "/admin-profile",
         component: <AdminProfile />,
         name_routes: "Admin Profile",
         icon: <UserOutlined />,
-        callApi: null
     },
 ]
 

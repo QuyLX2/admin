@@ -6,8 +6,8 @@ import {
     LOGOUT,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
+    USER_LOADED,
     AUTH_ERROR,
-    USER_LOADED
 } from '../constants';
 
 const initialState = {
@@ -16,7 +16,7 @@ const initialState = {
     loading: true,
     user: null
 }
-//
+
 export default function (state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
@@ -28,6 +28,7 @@ export default function (state = initialState, action) {
                 isAuthenticated: true,
                 loading: false
             };
+
         case LOGIN_FAIL:
         case LOGOUT:
         case AUTH_ERROR:
@@ -38,6 +39,7 @@ export default function (state = initialState, action) {
                 isAuthenticated: null,
                 loading: true
             };
+
         case USER_LOADED:
             return {
                 ...state,

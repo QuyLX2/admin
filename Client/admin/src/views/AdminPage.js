@@ -31,10 +31,10 @@ const AdminPage = (props) => {
                   {child.component}
                 </Route>
               ))}
-              <Route path='/admin/edit-post'>
+              <Route path='/edit-post'>
                 <EditPost />
               </Route>
-              <Route path='/admin/discuss'>
+              <Route path='/discuss'>
                 <Discuss />
               </Route>
             </Switch>

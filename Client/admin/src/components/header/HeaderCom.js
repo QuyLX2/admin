@@ -21,7 +21,7 @@ const HeaderCom = ({ isAuthenticated, logout }) => {
                     <Title type="warning" level={3}>ADMIN</Title>
                 </Col>
                 <Col xs={20} sm={16} md={12} lg={8} xl={16}>
-                    <Title type="warning" level={3}>Hỗ trợ học tập và quản lý sinh viên</Title>
+                    <Title type="warning" level={3}>E LEARNING</Title>
                 </Col>
                 <Col xs={2} sm={4} md={6} lg={8} xl={4} style={{ textAlign: "center" }}>
                     <Title level={3}><Button type="link" onClick={logout}>  <LogoutOutlined /> Logout</Button></Title>

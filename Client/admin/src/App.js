@@ -9,27 +9,30 @@ import PrivateRoute from './views/router/PrivateRoute';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import setAuthToken from '../src/utils/setAuthToken';
 import { loadUser } from './actions/auth';
-if (localStorage.token) {
-  setAuthToken(localStorage.token)
-}
+
+
+
 
 
 const App = () => {
   useEffect(() => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token)
+    }
     store.dispatch(loadUser())
   })
   return (
     <Provider store={store}>
       <Router>
         <Switch>
-          <PrivateRoute path="/admin">
+          <Route exact path="/login">
+            <LoginPage />
+          </Route>
+          <PrivateRoute  path="/">
             <AdminPage routes={routes} />
           </PrivateRoute>
           <Route path="/user">
             <UserPage />
-          </Route>
-          <Route exact path="/">
-            <LoginPage />
           </Route>
         </Switch>
       </Router>

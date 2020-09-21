@@ -3,7 +3,8 @@ import {
     GET_PROFILE,
     UPDATE_PROFILE,
     CLEAR_PROFILE,
-    ACCOUNT_DELETED, PROFILE_ERROR
+    ACCOUNT_DELETED,
+    PROFILE_ERROR
 } from '../constants';
 
 const initialState = {
@@ -23,7 +24,31 @@ export default function (state = initialState, action) {
                 profiles: payload,
                 loading: false
             };
-    
+        case GET_PROFILE:
+            return {
+                ...state,
+                profile: payload,
+                loading: false
+            };
+        case CLEAR_PROFILE:
+            return {
+                ...state,
+                profile: null,
+            };
+        case GET_PROFILE:
+            return {
+                ...state,
+                profile: payload,
+                loading: false
+            };
+        case PROFILE_ERROR:
+            return {
+                ...state,
+                error: payload,
+                loading: false,
+                profile: null
+            };
+
         default:
             return state;
     }

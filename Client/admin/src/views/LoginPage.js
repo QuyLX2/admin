@@ -16,15 +16,14 @@ import {
 const { Title } = Typography;
 
 const layout = {
-  labelCol: { span: 4 },
+  labelCol: { span: 8 },
   wrapperCol: { span: 20 },
 };
 const tailLayout = {
-  wrapperCol: { offset: 4, span: 20 },
+  wrapperCol: { offset: 8, span: 20 },
 };
 
 const LoginPage = ({ login, isAuthenticated, loading }) => {
-
   const onFinish = (values) => {
     login(values.account, values.password)
   };
@@ -33,16 +32,15 @@ const LoginPage = ({ login, isAuthenticated, loading }) => {
     console.log('Failed:', errorInfo);
   };
 
-  
+  // isLoggedin but loginpage rerender 1 times
   if (isAuthenticated) {
-    return <Redirect to="/admin" />
+    return <Redirect to="/home" />
   }
   return (
     <div
       style={{
         height: '100vh',
         width: '100%',
-        // background: 'rgb(178,44,204)',
         background:
           'linear-gradient(45deg, rgba(178,44,204,1) 28%, rgba(252,70,107,1) 89%)',
         display: 'flex',
@@ -88,7 +86,7 @@ const LoginPage = ({ login, isAuthenticated, loading }) => {
             >
               <Input
                 style={{
-                  width: '100%',
+                  width: '50%',
                   height: 50,
                   borderRadius: 10,
                 }}
@@ -109,7 +107,7 @@ const LoginPage = ({ login, isAuthenticated, loading }) => {
             >
               <Input.Password
                 style={{
-                  width: '100%',
+                  width: '50%',
                   height: 50,
                   borderRadius: 10,
                 }}
@@ -121,9 +119,8 @@ const LoginPage = ({ login, isAuthenticated, loading }) => {
             <Form.Item {...tailLayout}>
               <Button
                 style={{
-                  width: '100%',
+                  width: '50%',
                   height: 50,
-                  // background: 'rgb(178,44,204)',
                   background:
                     'linear-gradient(45deg, rgba(178,44,204,1) 36%, rgba(227,48,103,1) 70%)',
                   borderRadius: 10,
@@ -148,7 +145,6 @@ LoginPage.propTypes = {
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool,
-
 }
 
 const mapStateToProps = state => ({

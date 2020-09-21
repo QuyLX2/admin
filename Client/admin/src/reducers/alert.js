@@ -1,6 +1,5 @@
 import { REMOVE_ALERT, SET_ALERT } from '../constants'
 
-
 const initialState = [];
 
 export default function (state = initialState, action) {

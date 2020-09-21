@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert } from 'antd';
 
@@ -12,9 +12,9 @@ const AlertWarning = ({ alerts }) => (
     ))
 )
 
-Alert.propTypes = {
-    alerts: PropTypes.array.isRequired,
-}
+// Alert.propTypes = {
+//     alerts: PropTypes.array.isRequired,
+// }
 
 const mapStateToProps = state => ({
     alerts: state.alert
