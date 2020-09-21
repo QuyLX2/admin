@@ -1,8 +1,8 @@
 import {
     GET_PROFILES,
     GET_PROFILE,
-    UPDATE_PROFILE,
     CLEAR_PROFILE,
+    UPDATE_PROFILE,
     ACCOUNT_DELETED,
     PROFILE_ERROR
 } from '../constants';
@@ -48,7 +48,6 @@ export default function (state = initialState, action) {
                 loading: false,
                 profile: null
             };
-
         default:
             return state;
     }

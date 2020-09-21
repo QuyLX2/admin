@@ -4,26 +4,18 @@ const profileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'person'
   },
-  dateOfBirth: {
-    type: Date,
-    // required: true,
-  },
-  degree: {
-    type: String,
-  },
   email: {
     type: String,
     required: true,
     unique: true,
   },
   phone: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
-  address: {
+  fullName: {
     type: String,
-    // required: true,
   },
   mark: {
     type: Array,
