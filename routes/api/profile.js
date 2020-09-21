@@ -45,15 +45,13 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { dateOfBirth, degree, email, phone, address } = req.body;
+    const {  email, phone, fullName } = req.body;
     //build profile object
     const profileFields = {};
     profileFields.person = req.person.id;
-    if (dateOfBirth) profileFields.dateOfBirth = dateOfBirth;
-    if (degree) profileFields.degree = degree;
     if (email) profileFields.email = email;
     if (phone) profileFields.phone = phone;
-    if (address) profileFields.address = address;
+    if (fullName) profileFields.fullName = fullName;
     try {
       let profile = await Profile.findOne({ person: req.person.id });
       if (profile) {
@@ -63,7 +61,6 @@ router.post(
           { $set: profileFields },
           { new: true }
         );
-        await profile.save();
         return res.json(profile);
       }
       //create
