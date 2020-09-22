@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../actions/auth';
-import { Redirect } from 'react-router-dom';
 import AlertWarning from './Alert';
+
+
 import {
   Typography,
   Card,
@@ -23,19 +24,14 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 20 },
 };
 
-const LoginPage = ({ login, isAuthenticated, loading }) => {
+const LoginPage = ({ login}) => {
   const onFinish = (values) => {
-    login(values.account, values.password)
+    login(values.account, values.password);
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-
-  // isLoggedin but loginpage rerender 1 times
-  if (isAuthenticated) {
-    return <Redirect to="/home" />
-  }
   return (
     <div
       style={{
@@ -59,7 +55,9 @@ const LoginPage = ({ login, isAuthenticated, loading }) => {
           alignItems: 'center',
         }}
       >
-        <Title style={{ textAlign: 'center' }} level={1}>
+        <Title style={{
+          textAlign: 'center'
+        }} level={1}>
           LOGIN
           </Title>
         <div style={{ width: 500 }}>
@@ -137,19 +135,14 @@ const LoginPage = ({ login, isAuthenticated, loading }) => {
           </Form>
         </div>
       </Card>
-    </div>
-  );
+    </div >
+  )
 }
 
 LoginPage.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-  loading: PropTypes.bool,
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  loading: state.auth.loading
-})
 
-export default connect(mapStateToProps, { login })(LoginPage);
+
+export default connect(null, { login })(LoginPage);

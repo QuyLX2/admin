@@ -9,10 +9,9 @@ import {
     LOGOUT,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
+    USER_LOADED,
     AUTH_ERROR,
-    USER_LOADED
 } from '../constants'
-
 
 //  load user
 export const loadUser = () => async dispatch => {
@@ -60,7 +59,6 @@ export const login = (account, password) => async dispatch => {
         })
     }
 };
-
 
 // logout action
 export const logout = () => dispatch => {
