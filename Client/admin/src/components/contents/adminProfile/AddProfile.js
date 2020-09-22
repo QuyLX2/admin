@@ -14,14 +14,14 @@ const layout = {
 };
 
 
-const AdminDetail = ({ user, profile, history, upDateProfile }) => {
+const AdminDetail = ({ user, upDateProfile, history }) => {
     const onFinish = (values) => {
         console.log(values);
         upDateProfile(values.user, history)
     };
-    if (profile === null) {
-        return <Spin size="large" />
-    }
+    // if (profile === null ) {
+    //    return <Spin size="large" />
+    // }
     return (
         <Fragment>
             <div className="site-card-wrapper">
@@ -46,14 +46,12 @@ const AdminDetail = ({ user, profile, history, upDateProfile }) => {
                         },
                     ]}
 
-                    initialValue={profile.email}
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item
                     name={['user', 'phone']}
                     label="Phone"
-                    initialValue={profile.phone}
 
                 >
                     <Input />
@@ -61,13 +59,12 @@ const AdminDetail = ({ user, profile, history, upDateProfile }) => {
                 <Form.Item
                     name={['user', 'fullName']}
                     label="Fullname"
-                    initialValue={profile.fullName}
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 12 }}>
                     <Button type="primary" htmlType="submit">
-                        Changes Profile
+                        Add Profile
                     </Button>
                 </Form.Item>
             </Form>
@@ -82,7 +79,8 @@ AdminDetail.propTypes = {
 
 const mapStateToProps = state => ({
     user: state.auth.user,
-    profile: state.profile.profile,
+    // profile: state.profile.profile,
+    error: state.profile.error
 })
 
 export default withRouter(connect(mapStateToProps, { upDateProfile })(AdminDetail))

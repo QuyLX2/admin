@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../actions/auth';
 import AlertWarning from './Alert';
-
+import { Redirect } from 'react-router-dom';
 
 import {
   Typography,
@@ -24,15 +24,15 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 20 },
 };
 
-const LoginPage = ({ login}) => {
+const LoginPage = ({ login, isAuthenticated }) => {
   const onFinish = (values) => {
     login(values.account, values.password);
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-  return (
+
+  return isAuthenticated ? <Redirect to="/home" /> : (
     <div
       style={{
         height: '100vh',
@@ -59,7 +59,7 @@ const LoginPage = ({ login}) => {
           textAlign: 'center'
         }} level={1}>
           LOGIN
-          </Title>
+        </Title>
         <div style={{ width: 500 }}>
 
           <Form
@@ -129,7 +129,7 @@ const LoginPage = ({ login}) => {
                 htmlType='submit'
               >
                 Login
-              </Button>
+            </Button>
               <AlertWarning />
             </Form.Item>
           </Form>
@@ -139,10 +139,13 @@ const LoginPage = ({ login}) => {
   )
 }
 
+
 LoginPage.propTypes = {
   login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 }
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+})
 
-
-
-export default connect(null, { login })(LoginPage);
+export default connect(mapStateToProps, { login })(LoginPage);

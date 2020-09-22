@@ -3,6 +3,7 @@ import {
     // REMOVE_ALERT,
     // REGISTER_FAIL,
     // REGISTER_SUCCESS,
+    ACCOUNT_DELETED,
     LOGOUT,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
@@ -39,7 +40,14 @@ export default function (state = initialState, action) {
                 isAuthenticated: null,
                 loading: true
             };
-
+        case ACCOUNT_DELETED:
+            return {
+                ...state,
+                token: null,
+                isAuthenticated: false,
+                loading: false,
+                user: null
+            };
         case USER_LOADED:
             return {
                 ...state,
@@ -47,7 +55,7 @@ export default function (state = initialState, action) {
                 isAuthenticated: true,
                 loading: false
             };
-    
+
         default:
             return state;
     }

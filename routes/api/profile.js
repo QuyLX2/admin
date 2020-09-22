@@ -99,11 +99,12 @@ router.get(
     try {
       if (req.person.role === 'user') {
         const profiles = await Profile.find()
-          .populate({ path: 'person', select: 'name avatar -_id' });
+          .populate({ path: 'person', select: 'name avatar account -_id' });
         profileFr = profiles.map((profile) => profile.person);
         return res.json(profileFr);
       }
       const profiles = await Profile.find().populate('person', [
+        'account',
         'name',
         'avatar',
       ]);

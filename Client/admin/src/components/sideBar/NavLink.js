@@ -19,7 +19,7 @@ const NavLink = ({ getAllProfiles, getProfile, getAllPosts }) => {
       case 'Post Management':
         return getAllPosts();
       default:
-        break;
+        return null;
     }
   }
 
@@ -35,8 +35,8 @@ const NavLink = ({ getAllProfiles, getProfile, getAllPosts }) => {
         {routes.map((child, index) => (
           <Menu.Item key={index} icon={child.icon}>
             <Link
-              onClick={() => callApi(child.name_routes)}
               to={child.path}
+              onClick={() => callApi(child.name_routes)}
             >
               {child.name_routes}
             </Link>

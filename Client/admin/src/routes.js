@@ -29,7 +29,7 @@ const routes = [
 
     },
     {
-        path: "/admin/post-manager",
+        path: "/post-manager",
         component: <PostManagement />,
         name_routes: "Post Management",
         icon: <SolutionOutlined />,

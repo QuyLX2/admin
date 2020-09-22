@@ -1,29 +1,25 @@
-import React, { useEffect } from 'react';
-import { Row, Col } from 'antd';
-import AdminDetail from '../components/contents/adminProfile/AdminDetail';
-import AdminAccountDetail from '../components/contents/adminProfile/AdminAccountDetail';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import AdminDetail from '../components/contents/adminProfile/AdminDetail';
+import AddProfile from '../components/contents/adminProfile/AddProfile';
 
 
 const AdminProfile = ({ profile, error, loading }) => {
   return (
     (loading === false && error.status === 400) ?
-      (<div>{error.msg}
-        <AdminAccountDetail />
-      </div>
+      (
+        <div>
+          <AddProfile />
+        </div>
       )
       :
-      <div>
-        <Row>
-          <Col span={16} push={8}>
-            <AdminAccountDetail />
-          </Col>
-          <Col span={6} pull={16}>
-            <AdminDetail />
-          </Col>
-        </Row>
-      </div>
+      <Fragment>
+        <div>
+          You can edit your profile
+        </div>
+        <AdminDetail />
+      </Fragment>
   );
 }
 
